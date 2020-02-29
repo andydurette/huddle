@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- stable
+npm: true
+cache:
+  directories:
+  - node_modules
+script:
+   - npm run lint
+   - npm run build
+   - npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: Sg6n/hw+Vcn59/0xCy0a15B0ocaf132FzfXkiHvbwPYla3Q1tuHFhaBwlXktskI5Cs+sUK2lCfwGYLMmxO/8u9c5Aykg2ukHBiLemrLiuU8OlcXpULWoDdjOTtMYwwjQub/ZgH4275uOnLX8qOu+/JHPEW+3MAvBjpS3YJ5gaR2apYw8RutWQ4/KmyWV2M8EEbFCTyV2AvrYsNk+Syb0Oame3JBeL3rc6WmMCV0gToli2Wwq25mU3OkxzSZoT/pSUvnyla9doPNd86fkVxIKP+e4yvZO4qwLVXecXTJG93wiULnhM1FmYTzv2poDUKnES4I2ykrrUAqUeKF0KFmB4GPu+wWBHb3uXcNVC1OB1miB/CCA095HjtXTWiKgq8gwGmLaNfxwyoerXRWsZXJRn/qOoBki0hn0y582a4p8AJeWyAU/hYOS9RRSkwuaLJ1gpfD5hxAnslUzUN14DjsjBytY6BTwHmT9ODshPIubCYKf/Kc8p0g8CvVn6V137DABEx9qLB6q30bJ+XxgNxh/SzmB0Lo8hnzOq8pHWOmrgrrvrDpxW1cWqNIfO2O1M1IcCF3PFQRLN232xJk+J4NjjYS1FBDLT8ZFGn57nIiRnor2wQWV9YXw3OlO4EeYImZNTqgXv8y0i8KRj0bPfespyUl61K5Y9y30GtRYWQoDgQo="
+  app: lets-huddle
+  on:
+    repo: andydurette/huddle
+    branch: master
