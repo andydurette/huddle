@@ -1,6 +1,6 @@
 import React from "react";
 import {AppProvider} from './utils/AppContext';
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import { BrowserRouter as Router, Switch/*, Route*/} from "react-router-dom";
 import "./scss/App.scss";
 
 function App() {
