@@ -1,18 +1,28 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import {AppProvider} from './utils/AppContext';
+import { BrowserRouter as Router, Switch/*, Route*/} from "react-router-dom";
+import "./scss/App.scss";
 
 function App() {
+	
 	return (
-		<div className="App">
-			<div className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<h2>Welcome to React</h2>
-			</div>
-			<p className="App-intro">
-        To get started, edit <code>src/App.js</code> and save to reload.
-			</p>
-		</div>
+	  <AppProvider> 
+      <Router>
+      <div className="App">
+        {/*  <Nav/> */}
+        <section id="wrapper"> 
+        Hi this is working, lets make it better.
+          <div id="wrapper-contents">  
+          <Switch>
+           {/* <Route path="/" exact activeClassName='is-active' component={Home}></Route> */}
+           {/* <Route path="/saved" activeClassName='is-active' component={SavedBooks}></Route> */}
+          </Switch>
+          </div>
+        {/*  <Footer/> */}
+        </section>
+      </div>
+      </Router>
+    </AppProvider> 
 	);
 }
 
