@@ -13,6 +13,13 @@ if (process.env.NODE_ENV === "production") {
 
 // Define API routes here
 
+// Grab Login Data for Login
+app.post("/api/login", async (req, res) => {
+	let loginData = req.body;
+	console.log(loginData);
+	res.sendStatus(200);
+});
+
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {

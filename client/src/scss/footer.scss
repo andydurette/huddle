@@ -1,0 +1,15 @@
+footer{
+  height:50px;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  border-top: 2px solid white;
+  background-color:$huddle-blue;
+  box-sizing: border-box;
+  #copyright{
+    width:100%;
+    text-align:center;
+    color:white;
+  }
+}

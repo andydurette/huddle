@@ -1,4 +1,4 @@
-let map;
+/* let map;
 
 let lastOpenedInfoWindow = null;
 
@@ -360,3 +360,4 @@ function panToRestaurantClick(map, markers) {
 
 
 
+*/
