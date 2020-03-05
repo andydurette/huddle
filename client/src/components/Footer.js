@@ -2,7 +2,6 @@ import React from 'react';
 
 function Footer() {
 
-// Sets year in footer copyright
 let year = new Date().getFullYear();
 
   return(
