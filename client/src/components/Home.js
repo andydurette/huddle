@@ -3,7 +3,7 @@ import Footer from "./Footer";
 
 function Home() {
     return (
-        <section id="wrapper" className="Home"> 
+        <section id="wrapper" className="home"> 
             <div id="wrapper-contents" >  
                 <div id="join-message">
                     <div><img src="/img/huddle-logo.svg" alt="Huddle Logo"/></div>
