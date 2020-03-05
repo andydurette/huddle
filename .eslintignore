@@ -174,3 +174,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
+# Ignore build files except build/index.js
+client/build/*
+client/!build/index.js

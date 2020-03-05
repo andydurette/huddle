@@ -1,11 +1,25 @@
 import React from 'react';
+import Footer from "./Footer";
 
 function Home() {
     return (
-        <div>
-            <h1>Home Page</h1>
-        </div>
-
+        <section id="wrapper" className="Home"> 
+            <div id="wrapper-contents" >  
+                <div id="join-message">
+                    <div><img src="/img/huddle-logo.svg" alt="Huddle Logo"/></div>
+                    <div>
+                        <p>
+                            See events from your coach, who will be at the game or past games scores all in one convient place.
+                            Sign up for free and add your team members.
+                        </p>
+                    </div>
+                    <div>
+                        <button>Join Now</button>
+                    </div>
+                </div>
+            </div>
+            <Footer/>
+        </section>
     )
 }
 

@@ -1,5 +1,9 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+$huddle-blue: #539bab;
+
+@import url('https://fonts.googleapis.com/css?family=Graduate&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import "normalize.scss";
+@import "generalstyles.scss";
+@import "nav.scss";
+@import "home.scss";
+@import "footer.scss";

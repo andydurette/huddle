@@ -1,9 +1,9 @@
 import React from "react";
 import {AppProvider} from './utils/AppContext';
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Home from "./components/home";
-import Schedule from "./components/schedule";
-import "./scss/App.scss";
+import Nav from "./components/Nav";
+import Home from "./components/Home";
+import Login from "./components/Login";
 
 function App() {
 	
@@ -11,22 +11,15 @@ function App() {
 	  <AppProvider> 
       <Router>
       <div className="App">
-        {/*  <Nav/> */}
-        <section id="wrapper"> 
-        Hi this is working, lets make it better.
-          <div id="wrapper-contents">  
+        <Nav/>
           <Switch>
            <Route path="/" exact activeClassName='is-active' component={Home}></Route>
-           <Route path="/saved" activeClassName='is-active' component={Schedule}></Route>
+           <Route path="/login" activeClassName='is-active' component={Login}></Route>
           </Switch>
-          </div>
-        {/*  <Footer/> */}
-        </section>
       </div>
       </Router>
     </AppProvider> 
 	);
 }
-
 
 export default App;
