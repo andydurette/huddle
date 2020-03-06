@@ -1,0 +1,53 @@
+.home{
+  background: url("/img/huddle.jpg");
+  background-size:cover;
+  background-position: center bottom;
+  background-repeat: no-repeat; 
+  background-image: url("/img/huddle.png"), linear-gradient(#ebeced, #608087);
+  button{
+      background-color: $huddle-blue;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1.4rem;
+      margin-top:20px;
+      border-radius:5px;
+  }
+  #wrapper-contents{
+    min-height:600px;
+  }
+  
+  #join-message{
+    display:flex;
+    flex-direction:column;
+    background-color: rgba(255,255,255,0.4);
+    margin: 20px 0;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+    div{
+      margin: 0 auto;
+      img{
+        width:80%;
+        margin: 0 auto;
+        display: block;
+      }
+      p{
+        width:80%;
+        margin:0 auto;
+        text-align:center; 
+        font-size:1.4rem;
+      }
+    }
+  }
+}
+
+
+@media only screen and (min-width: 1200px) {
+  .home{
+    background-size:contain;
+  }
+}
