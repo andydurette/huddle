@@ -9,5 +9,6 @@
     <orderEntry type="library" name="@types/filesystem" level="application" />
     <orderEntry type="library" name="@types/jquery" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="@types/material__drawer" level="application" />
   </component>
 </module>
