@@ -22,6 +22,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(apiRoutes);
+
+app.use( (req, res, next) => {  console.log("req.session", req.session);  return next();});
+
 // Define API routes here
 
 // Grab Login Data for Login
@@ -44,9 +47,12 @@ app.use(apiRoutes);
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get("*", isAuthenticated, (req, res) => {
-	res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+app.get("*", 
+	isAuthenticated, 
+	(req, res) => {
+		console.log("req.user: ", req.user);
+		res.sendFile(path.join(__dirname, "./client/build/index.html"));
+	});
 
 app.listen(PORT, () => {
 	console.log(`🌎 ==> API server now on port ${PORT}!`);
