@@ -239,7 +239,7 @@ function fitMarkersInBounds(map, markers) {
 }
 
 function panToVenueClick(map, markers) {
-    let elements = document.getElementsByClassName("restaurantContainer");
+    let elements = document.getElementsByClassName("venueContainer");
    
     for (let i = 0; i < elements.length; i++) {
 
