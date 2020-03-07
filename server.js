@@ -12,6 +12,9 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
+const apiRoutes = require("./controller/routes/api-routes");
+app.use('/api',apiRoutes);
+
 
 // Grab Login Data for Login
 app.post("/api/login", async (req, res) => {
