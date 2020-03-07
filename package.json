@@ -25,6 +25,10 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material/drawer": "^5.1.0",
+    "@material/list": "^5.1.0",
+    "@syncfusion/ej2-react-schedule": "^17.4.51",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "eslint-plugin-import": "^2.20.1",

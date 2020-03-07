@@ -1,4 +1,4 @@
-/* let map;
+/*let map;
 
 let lastOpenedInfoWindow = null;
 
@@ -8,53 +8,28 @@ function initMap() {
           
         styles: [
             {
-              "elementType": "geometry",
+              "featureType": "administrative.land_parcel",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#ebe3cd"
+                  "color": "#43736c"
                 }
               ]
             },
             {
-              "elementType": "labels.text.fill",
+              "featureType": "landscape",
               "stylers": [
                 {
-                  "color": "#fffff2"
+                  "color": "#eddac5"
                 }
               ]
             },
             {
-              "elementType": "labels.text.stroke",
+              "featureType": "landscape.natural.terrain",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#7a3232"
-                }
-              ]
-            },
-            {
-              "featureType": "poi",
-              "elementType": "geometry",
-              "stylers": [
-                {
-                  "color": "#dfd2ae"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.business",
-              "elementType": "labels.text.fill",
-              "stylers": [
-                {
-                  "color": "#fffff3"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.business",
-              "elementType": "labels.text.stroke",
-              "stylers": [
-                {
-                  "color": "#ee7600"
+                  "color": "#9e6556"
                 }
               ]
             },
@@ -63,136 +38,61 @@ function initMap() {
               "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#a5b076"
-                },
-                {
-                  "visibility": "on"
+                  "color": "#b4ddae"
                 }
               ]
             },
             {
-              "featureType": "road",
-              "elementType": "geometry",
+              "featureType": "poi.sports_complex",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#f5f1e6"
+                  "color": "#f4ab42"
                 }
               ]
             },
             {
               "featureType": "road.arterial",
-              "elementType": "geometry",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#fdfcf8"
-                }
-              ]
-            },
-            {
-            "featureType": "road.arterial",
-            "elementType": "labels.text.fill",
-              "stylers": [
-                {
-                  "color": "#0c90ee"
-                }
-              ]
-            },
-            {
-                "featureType": "road.arterial",
-                "elementType": "labels.text.stroke",
-                  "stylers": [
-                    {
-                      "color": "#fffff2"
-                    }
-                  ]
-                },
-            {
-              "featureType": "road.highway",
-              "elementType": "geometry",
-              "stylers": [
-                {
-                  "color": "#f8c967"
+                  "color": "#a6a77b"
                 }
               ]
             },
             {
               "featureType": "road.highway",
-              "elementType": "geometry.stroke",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#e9bc62"
-                }
-              ]
-            },
-            {
-              "featureType": "road.highway.controlled_access",
-              "elementType": "geometry",
-              "stylers": [
-                {
-                  "color": "#e98d58"
-                }
-              ]
-            },
-            {
-              "featureType": "road.highway.controlled_access",
-              "elementType": "geometry.stroke",
-              "stylers": [
-                {
-                  "color": "#7a3232"
+                  "color": "#ee6f69"
                 }
               ]
             },
             {
               "featureType": "road.local",
-              "elementType": "labels.text.fill",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#0c90ee"
-                }
-              ]
-            },
-            {
-                "featureType": "road.local",
-                "elementType": "labels.text.stroke",
-                "stylers": [
-                  {
-                    "color": "#ffffe0"
-                  }
-                ]
-              },
-            {
-              "featureType": "transit.line",
-              "elementType": "geometry",
-              "stylers": [
-                {
-                  "color": "#dfd2ae"
+                  "color": "#a6a77b"
                 }
               ]
             },
             {
               "featureType": "transit.line",
-              "elementType": "labels.text.fill",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#8f7d77"
-                }
-              ]
-            },
-            {
-              "featureType": "transit.line",
-              "elementType": "labels.text.stroke",
-              "stylers": [
-                {
-                  "color": "#ebe3cd"
+                  "color": "#d4a595"
                 }
               ]
             },
             {
               "featureType": "transit.station",
-              "elementType": "geometry",
+              "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#dfd2ae"
+                  "color": "#d4a595"
                 }
               ]
             },
@@ -201,7 +101,7 @@ function initMap() {
               "elementType": "geometry.fill",
               "stylers": [
                 {
-                  "color": "#b9d3c2"
+                  "color": "#6a98a5"
                 }
               ]
             },
@@ -210,11 +110,11 @@ function initMap() {
               "elementType": "labels.text.fill",
               "stylers": [
                 {
-                  "color": "#92998d"
+                  "color": "#dbbf83"
                 }
               ]
             }
-          ]
+          ]/
     });
 
     if(navigator.geolocation){
@@ -231,24 +131,24 @@ function initMapWithPosition(position){
     map.setZoom(13);    
 }
 
-function setMarkers(restuarantList, image) {
+function setMarkers(venueList, image) {
    
-    let restaurants = [];
+    let venues = [];
 
-    if (restuarantList.length > 0) {
-        restaurants = restuarantList;        
+    if (venueList.length > 0) {
+        venues = veuneList;        
     
-        createMarkers(restaurants, image);
+        createMarkers(venues, image);
     }
     
 }
 
-async function createMarkers(restaurants, image) {
+async function createMarkers(venues, image) {
     let markers = [];
-    for (const restuarant of restaurants) {
+    for (const venue of venueList) {
         let imageSource = '';
-        let mlat = parseFloat(restuarant.lat);
-        let mlng = parseFloat(restuarant.lon);
+        let mlat = parseFloat(venue.lat);
+        let mlng = parseFloat(venue.lon);
         let position = { lat: mlat, lng: mlng };
 
         let infowindow = new google.maps.InfoWindow({ minWidth: 400 });
@@ -257,11 +157,11 @@ async function createMarkers(restaurants, image) {
             position: position,
             map: map,
             icon: image,
-            title: restuarant.name,                
-            property_id: restuarant.id
+            title: venue.name,                
+            property_id: venue.id
         });
 
-        google.maps.event.addListener(marker, 'click', (function (marker, thisRestaurant) {
+        google.maps.event.addListener(marker, 'click', (function (marker, thisVenue) {
 
             return function () {
                 //get info window content for particular restaurant
@@ -269,34 +169,32 @@ async function createMarkers(restaurants, image) {
                 if (lastOpenedInfoWindow){
                     lastOpenedInfoWindow.close();
                 }
-                if (thisRestaurant.image_url !== null) {
-                    imageSource = thisRestaurant.image_url;
+                if (thisVenue.image_url !== null) {
+                    imageSource = thisVenue.image_url;
                 } else {
                     imageSource = "";//'/Images/info_window_fallback.png';
                 }
-                console.log(thisRestaurant);
+                console.log(thisVenue);
                 
-                let categoriesStr = "cuisines";
-                // let categoriesStr = thisRestaurant.categories.map(e =>{                        
+                //let categoriesStr = "cuisines";
+                // let categoriesStr = thisVenue.categories.map(e =>{                        
                 //     return e.title;
                 // }).join(", ");                   
                 
                 let contentDiv = $("<div>").addClass("maps-info-pane")
-                    .append($("<h2>").addClass("restaurant-name").text(thisRestaurant.name),
+                    .append($("<h2>").addClass("venue-name").text(thisVenue.name),
                             $("<div>").addClass("")
                             .append($("<div>").addClass("").attr("style",`background-image: url("${imageSource}")'`),
                                     $("<div>").addClass("restaurant-info")
-                                    .append($("<h4>").addClass("address").text(JSON.parse(thisRestaurant.address).address1),
-                                             $("<p>").addClass("").html(`Cuisine: <strong>${thisRestaurant.cuisines}</strong>`),
-                                             $("<p>").addClass("").html(`Price: <strong>${thisRestaurant.price}</strong>`),
-                                             $("<p>").addClass("").html(`Rating: <strong>${generateRatingGraphic(thisRestaurant.rating).get()[0].outerHTML}</strong>`),
-                                             $("<button>").addClass("btn btn-success").attr("data-yelpid",thisRestaurant.visited?thisRestaurant.id:thisRestaurant.yelp_id).text("Show Details")
+                                    .append($("<h4>").addClass("address").text(JSON.parse(thisVenue.address).address1),
+                                             $("<p>").addClass("").html(`Rating: <strong>${generateRatingGraphic(thisVenue.rating).get()[0].outerHTML}</strong>`),
+                                             $("<button>").addClass("btn btn-success").attr("data-yelpid",thisVenue.visited?thisVenue.id:thisVenue.yelp_id).text("Show Details")
                                                 .on('click', async function(event){
                                                    
                                                     console.log("hi");
                                                     let yelp_id = $(event.currentTarget).data("yelpid");
                                                     //console.log(yelp_id);
-                                                    loadInfoModal(yelp_id, thisRestaurant.added_at);
+                                                    loadInfoModal(yelp_id, thisVenue.added_at);
                                                 })
                                     )
                             )
@@ -307,7 +205,7 @@ async function createMarkers(restaurants, image) {
 
                 lastOpenedInfoWindow = infowindow;
             }
-        })(marker, restuarant));
+        })(marker, venue));
         markers.push(marker);
     }     
     
@@ -317,7 +215,7 @@ async function createMarkers(restaurants, image) {
     // });
     if(markers.length > 0 ){
         fitMarkersInBounds(map, markers);
-        panToRestaurantClick(map, markers); //When restaurant div is clicked, move tha map's focus and zoom into it
+        panToVenueClick(map, markers); //When restaurant div is clicked, move tha map's focus and zoom into it
     }
 }
 
@@ -340,7 +238,7 @@ function fitMarkersInBounds(map, markers) {
     
 }
 
-function panToRestaurantClick(map, markers) {
+function panToVenueClick(map, markers) {
     let elements = document.getElementsByClassName("restaurantContainer");
    
     for (let i = 0; i < elements.length; i++) {
