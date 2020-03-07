@@ -8,7 +8,7 @@ let user = new User();
 
 passport.use(new LocalStrategy( 
 	function(username, password, done) {
-		console.log('request received, user: ', username)
+		console.log("request received, user: ", username);
 		user.getInfoByEmail(username)
 			.then(async function(userInfo){
 				let result;

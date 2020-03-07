@@ -19,7 +19,7 @@ class Team {
 
 	async addMember(teamId, userId, positionId){
 		let position;
-		(positionId === '') ? position = 'null' : position = positionId; // will be null if the value is empty
+		(positionId === "") ? position = "null" : position = positionId; // will be null if the value is empty
 		let query = `insert into team_member (team_id, user_id, player_pos_id) values
 		(${teamId}, ${userId}, ${position});`;
 		try {
@@ -32,7 +32,7 @@ class Team {
 	}
 
 	async updatePlayerPosition(){
-		let query = ``;
+		let query = "";
 		try {
 			await this.pool.query(query);
 			return 1;
@@ -55,18 +55,7 @@ class Team {
 
 
 	async deleteTeam(){
-		let query = ``;
-		try {
-			await this.pool.query(query);
-			return 1;
-		}
-		catch(error) {
-			return error;
-		}
-	}
-
-	async updatePlayerPosition(){
-		let query = ``;
+		let query = "";
 		try {
 			await this.pool.query(query);
 			return 1;
