@@ -25,12 +25,20 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material/drawer": "^5.1.0",
+    "@material/list": "^5.1.0",
+    "@syncfusion/ej2-react-schedule": "^17.4.51",
     "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
     "eslint-plugin-import": "^2.20.1",
     "express": "^4.16.3",
+    "express-session": "^1.17.0",
     "if-env": "^1.0.4",
     "mysql2": "^2.1.0",
     "node-sass": "^4.13.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "react-router-dom": "^5.1.2"
   }
 }
