@@ -29,6 +29,7 @@
     "@material/drawer": "^5.1.0",
     "@material/list": "^5.1.0",
     "@syncfusion/ej2-react-schedule": "^17.4.51",
+    "axios": "^0.19.2",
     "eslint-plugin-import": "^2.20.1",
     "express": "^4.16.3",
     "if-env": "^1.0.4",

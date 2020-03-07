@@ -20,6 +20,13 @@ app.post("/api/login", async (req, res) => {
 	res.sendStatus(200);
 });
 
+// Grab Login Data for Login
+app.post("/api/signup", async (req, res) => {
+	let signUpData = req.body;
+	console.log(signUpData);
+	res.sendStatus(200);
+});
+
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
