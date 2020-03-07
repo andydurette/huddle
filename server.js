@@ -5,6 +5,7 @@ const app = express();
 const passport = require("passport");
 const session = require("express-session");
 const apiRoutes = require("./controller/api-routes-test");
+const isAuthenticated = require("./controller/isAuthenticated");
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -37,9 +38,13 @@ app.use(apiRoutes);
 // 	res.sendStatus(200);
 // });
 
+// app.get("/main", isAuthenticated, (req, res) => {
+// 		res.redirect(200);
+// 	});
+
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get("*", (req, res) => {
+app.get("*", isAuthenticated, (req, res) => {
 	res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
