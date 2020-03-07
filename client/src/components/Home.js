@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
 import Footer from "./Footer";
 
 function Home() {
@@ -14,7 +15,9 @@ function Home() {
                         </p>
                     </div>
                     <div>
+                    <NavLink to='/signup'>
                         <button>Join Now</button>
+                    </NavLink>
                     </div>
                 </div>
             </div>

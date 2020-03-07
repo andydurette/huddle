@@ -2,10 +2,20 @@ import React, { useState } from 'react';
 import Footer from "./Footer";
 
 
-function Login() {
+function SignUp() {
 
+    let [firstName, setFirstName] = useState('');
+    let [lastName, setLastName] = useState('');
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
+
+    const handleFirstNameChange = e => {
+        setFirstName( firstName = e.target.value);
+    };
+
+    const handleLastNameChange = e => {
+        setLastName( lastName = e.target.value);
+    };
 
     const handleEmailChange = e => {
         setEmail( email = e.target.value);
@@ -20,7 +30,9 @@ function Login() {
             e.preventDefault();
 
             let idInfopass = {
-                username: email,
+                firstName:  firstName,
+                lastName:  lastName,
+                email: email,
                 password: password
             }
 
@@ -37,22 +49,25 @@ function Login() {
     }
 
 
-
     return (
-      <section id="wrapper" className="login">
-          <div id="wrapper-contents" >
-            <h1>Huddle Login</h1>
+      <section id="wrapper" className="login"> 
+          <div id="wrapper-contents" >  
+            <h1>Huddle SignUp</h1>
             <form onSubmit={(e) => API.handleSubmit(e)}>
+                <label htmlFor="fname">First Name:</label><br/>
+                <input type="text" id="email" name="fname" onChange={(e) => handleFirstNameChange(e)} value={firstName} /><br/>
+                <label htmlFor="lname">Last Name:</label><br/>
+                <input type="text" id="email" name="lname" onChange={(e) => handleLastNameChange(e)} value={lastName} /><br/>
                 <label htmlFor="email">Email:</label><br/>
                 <input type="text" id="email" name="email" onChange={(e) => handleEmailChange(e)} value={email} /><br/>
                 <label htmlFor="password">Password:</label><br/>
                 <input type="password" id="password" name="password" onChange={(e) => handlePasswordChange(e)} value={password} /><br/><br/>
                 <input type="submit" value="Submit"></input>
-            </form>
+            </form> 
           </div>
           <Footer/>
       </section>
     )
 }
 
-export default Login;
+export default SignUp;
