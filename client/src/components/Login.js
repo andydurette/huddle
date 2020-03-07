@@ -20,7 +20,7 @@ function Login() {
             e.preventDefault();
 
             let idInfopass = {
-                email: email,
+                username: email,
                 password: password
             }
 
