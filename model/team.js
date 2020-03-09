@@ -31,8 +31,9 @@ class Team {
 		}
 	}
 
-	async updatePlayerPosition(){
-		let query = "";
+	async updatePlayerPosition(teamId, userId, positionId){
+		let query = `update team_member set player_pos_id = ${positionId} 
+		where team_id = ${teamId} and user_id = ${userId};`;
 		try {
 			await this.pool.query(query);
 			return 1;
@@ -54,7 +55,7 @@ class Team {
 	}
 
 
-	async deleteTeam(){
+	async delete(teamId){
 		let query = "";
 		try {
 			await this.pool.query(query);
