@@ -21,4 +21,8 @@ apiRoutes.get("/api/logout", function(req, res){
 	res.send("redirect successful");
 });
 
+apiRoutes.get("/api/authCheck", isAuthenticated, function(req, res){
+	res.sendStatus(200);
+});
+
 module.exports = apiRoutes;
