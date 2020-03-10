@@ -16,4 +16,9 @@ apiRoutes.get("/api/test", isAuthenticated, function(req, res){
 	res.send("The user is authenticated");
 });
 
+apiRoutes.get("/api/logout", function(req, res){
+	req.logout();
+	res.send("redirect successful");
+});
+
 module.exports = apiRoutes;
