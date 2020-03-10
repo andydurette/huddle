@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const passport = require("passport");
 const session = require("express-session");
-const apiRoutes = require("./controller/api-routes-test");
+const apiRoutes = require("./controller/routes/api-routes");
 const isAuthenticated = require("./controller/isAuthenticated");
 
 // Define middleware here
@@ -21,11 +21,10 @@ app.use(session({
 	}}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(apiRoutes);
-
-app.use( (req, res, next) => {  console.log("req.session", req.session);  return next();});
 
 // Define API routes here
+app.use("/api",apiRoutes);
+
 
 // Grab Login Data for Login
 // app.post("/api/login", async (req, res) => {
