@@ -17,6 +17,46 @@ class Team {
 		}
 	}
 
+	async getSports(){
+        let query = `select name from sport;`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+
+	async getPlayerPositions(sportId){
+        let query = `select player_pos_name from player_position where sports_id = ${sportId};`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}	
+	
+	async getTeam(teamId){
+		let query = `select t.name, t.description, s.name, 
+		concat(u.first_name, ' ', u.last_name) as 'member', pp.player_pos_name
+		from team t
+		join team_member tm on tm.team_id = t.id
+		join user u on tm.user_id = u.id
+		join player_position pp on tm.player_pos_id = pp.player_pos_id
+		join sport s on t.sports_id = s.id
+		where t.id = ${teamId};`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+
 	async addMember(teamId, userId, positionId){
 		let position;
 		(positionId === "") ? position = "null" : position = positionId; // will be null if the value is empty
@@ -53,7 +93,6 @@ class Team {
 			return error;
 		}
 	}
-
 
 	async delete(teamId){
 		let query = "";

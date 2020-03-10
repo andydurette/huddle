@@ -29,7 +29,8 @@ insert into event_types(name) values
 insert into confirmation_status(name) values
 ('I am going'),
 ('I am not going'),
-('I am going maybe');
+('I am going maybe'),
+('No answer');
 
 insert into user_type(type_name, type_description) values 
 ('Admin', 'Super-user who is able to create and edit teams'),

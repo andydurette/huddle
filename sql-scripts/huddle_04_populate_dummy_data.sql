@@ -30,3 +30,14 @@ delete from team_member where team_id = '' and user_id = '';
 
 update team_member set player_pos_id = '' 
 where team_id = '' and user_id = '';
+
+insert into event(team_id, event_type_id, event_date, venue_id, event_name, competitor_id, competitior_name)
+values ( ,  , '',  , '',  , '');
+
+insert into event_user values ( , , 4, null);
+
+select * 
+from team t
+join team_member tm on tm.team_id = t.id
+join sport s on t.sports_id = s.id;
+
