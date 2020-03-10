@@ -19,7 +19,7 @@ class User {
 	}
 
 	async getInfoByEmail(email){
-		let query = `select first_name, last_name, email
+		let query = `select id, first_name, last_name, email, password
                     from user
                     where email = '${email}';`;
 		try {

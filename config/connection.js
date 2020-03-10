@@ -1,5 +1,5 @@
 // MySQL connection 
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 
 let pool;
 if (process.env.JAWSDB_URL) {
