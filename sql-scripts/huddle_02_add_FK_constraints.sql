@@ -1,4 +1,4 @@
-use uwuc9h6qbkrchuc9;
+use huddle_db;
 
 alter table team 
 add foreign key (sports_id) references sport(id);

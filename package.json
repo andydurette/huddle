@@ -40,5 +40,16 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "react-router-dom": "^5.1.2"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andydurette/huddle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andydurette/huddle/issues"
+  },
+  "homepage": "https://github.com/andydurette/huddle#readme"
 }

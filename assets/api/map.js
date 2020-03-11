@@ -114,7 +114,7 @@ function initMap() {
                 }
               ]
             }
-          ]/
+          ]
     });
 
     if(navigator.geolocation){
@@ -145,7 +145,7 @@ function setMarkers(venueList, image) {
 
 async function createMarkers(venues, image) {
     let markers = [];
-    for (const venue of venueList) {
+    for (const venue of venues) {
         let imageSource = '';
         let mlat = parseFloat(venue.lat);
         let mlng = parseFloat(venue.lon);
@@ -256,6 +256,5 @@ function panToVenueClick(map, markers) {
     }
 }
 
-
-
 */
+
