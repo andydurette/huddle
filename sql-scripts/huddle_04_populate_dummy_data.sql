@@ -36,8 +36,28 @@ values ( ,  , '',  , '',  , '');
 
 insert into event_user values ( , , 4, null);
 
-select * 
+select t.name, t.description, s.name, 
+concat(u.first_name, ' ', u.last_name) as 'member', pp.player_pos_name
 from team t
 join team_member tm on tm.team_id = t.id
-join sport s on t.sports_id = s.id;
+join user u on tm.user_id = u.id
+join player_position pp on tm.player_pos_id = pp.player_pos_id
+join sport s on t.sports_id = s.id
+where t.id = '';
+
+insert into venue(api_id, name, lat, lon, address, phone) values 
+();
+
+select e.event_id, et.name, v.*, u.id, concat(u.first_name, ' ', u.last_name) as 'member', 
+cs.name, eu.comment
+from event e
+join venue v on v.id = e.venue_id
+join event_types et on et.id = e.event_type_id
+join event_user eu on eu.event_id = e.event_id 
+join confirmation_status cs on cs.id = eu.confirmation_status_id
+join user u on u.id = eu.user_id
+where e.event_id = '';
+
+select * 
+from venue;
 
