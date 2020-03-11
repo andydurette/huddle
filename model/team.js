@@ -18,7 +18,7 @@ class Team {
 	}
 
 	async getSports(){
-        let query = `select name from sport;`;
+        let query = `select id, name from sport;`;
 		try {
 			let result = await this.pool.query(query);
 			return result;
@@ -29,7 +29,7 @@ class Team {
 	}
 
 	async getPlayerPositions(sportId){
-        let query = `select player_pos_name from player_position where sports_id = ${sportId};`;
+        let query = `select player_pos_id, player_pos_name from player_position where sports_id = ${sportId};`;
 		try {
 			let result = await this.pool.query(query);
 			return result;
@@ -40,7 +40,7 @@ class Team {
 	}	
 	
 	async getTeam(teamId){
-		let query = `select t.name, t.description, s.name, 
+		let query = `select t.id, t.name, t.description, s.name, 
 		concat(u.first_name, ' ', u.last_name) as 'member', pp.player_pos_name
 		from team t
 		join team_member tm on tm.team_id = t.id

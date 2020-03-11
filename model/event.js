@@ -3,6 +3,38 @@ const pool = require("../config/connection");
 class Event {
 	constructor(){
 		this.pool = pool;
+	}
+	
+	async getDate(eventId){
+        let query = `select event_date from event where event_id = ${eventId}`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+	
+	async getDetails(eventId){
+		let query = `
+		select e.event_id, et.name, v.*, u.id, concat(u.first_name, ' ', u.last_name) as 'member', 
+		cs.name, eu.comment
+		from event e
+		join venue v on v.id = e.venue_id
+		join event_types et on et.id = e.event_type_id
+		join event_user eu on eu.event_id = e.event_id 
+		join confirmation_status cs on cs.id = eu.confirmation_status_id
+		join user u on u.id = eu.user_id
+		where e.event_id = ${eventId};
+		`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
     }
     
     async createNew(teamId, eventTypeId, eventDate, venueId, eventName, competitorId, competitorName){
