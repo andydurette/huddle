@@ -53,9 +53,9 @@ function TeamMaker() {
         setDescription( description = e.target.value);
     };
 
-    const handleSportChange = e => {
-        setSport( sport = e.target.value);
-      };
+    // const handleSportChange = e => {
+    //     setSport( sport = e.target.value);
+    //   };
 
     const API = {
         async handleSubmit(e) {

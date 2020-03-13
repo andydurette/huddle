@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 
-import {
-    FloatingMenu,
-    MainButton,
-    ChildButton,
-  } from './src/index';
+
   import FloatingMenu from './src/FloatingMenu';
   import MainButton from './src/MainButton';
   import ChildButton from './src/ChildButton';
