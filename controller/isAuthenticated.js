@@ -4,8 +4,8 @@ module.exports = function(req, res, next) {
 		console.log("req.user: ", req.user);
 		next();
 	} else {
-		// If the user isn't logged in, redirect them to the login page
-		return res.send("Go elsewhere!!!");
+		// If the user isn't logged in, send 403 status
+		return res.sendStatus(403);
 	}
 };
   
