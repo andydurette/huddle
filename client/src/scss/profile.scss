@@ -1,0 +1,24 @@
+.Profile #wrapper-contents div{
+  flex-direction:column;
+  display:flex;
+  padding: 40px 0;
+  box-sizing: border-box;
+  min-height:100%;
+  div{
+    flex-direction:column;
+    justify-content: center;
+    margin: 0 auto;
+    img{
+      border-radius:60px;
+    }
+  }
+  div + div{
+    max-width:700px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .Profile #wrapper-contents div{
+      flex-direction:row;
+  }
+}

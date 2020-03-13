@@ -22,7 +22,7 @@ button{
   width:100%;
   margin:0 auto;
   box-sizing:border-box;
-  min-height:calc(100% - 81px);
+  min-height: calc(100% - 58px);
   display: flex;
   flex-direction: column;
 }
@@ -39,7 +39,15 @@ h1{
 
 
 @media only screen and (min-width: 600px) {
-  #wrapper-contents{
-    max-width:1200px;
+  #wrapper{
+    #wrapper-contents{
+      max-width:1200px;
+    }
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  #wrapper{
+    min-height: calc(100% - 58px);
   }
 }
