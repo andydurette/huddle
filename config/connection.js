@@ -9,7 +9,7 @@ if (process.env.JAWSDB_URL) {
 		host: "localhost",
 		port: 3306,
 		user: "root",
-		password: "12345",
+		password: "root",
 		database: "huddle_db",
 		connectionLimit: 100
 	});

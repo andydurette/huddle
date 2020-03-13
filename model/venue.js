@@ -51,6 +51,28 @@ class Venue {
 			return error;
 		}
 	}
+
+	async getAddress(venueId){
+        let query = `select name, address from venue where id = ${venueId};`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+
+	async delete(venueId){
+        let query = `delete from venue where id = ${venueId}`;
+		try {
+			await this.pool.query(query);
+			return 1;
+		}
+		catch(error) {
+			return error;
+		}
+    }
 	
 	async updateEvent(){
         let query = ``;

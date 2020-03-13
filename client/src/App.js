@@ -1,63 +1,38 @@
 import React from "react";
-import {AppProvider} from './utils/AppContext';
-import { BrowserRouter as Router, Switch, Route,  Redirect} from "react-router-dom";
-import Nav from "./components/Nav";
 import Home from "./components/Home";
-import Login from "./components/Login";
+import NavBar from "./components/NavBar";
+// Private Route
+import PrivateRoute from "./components/PrivateRoute";
+
+// New - import the React Router components, and the Profile page component
+import { Router, Route, Switch } from "react-router-dom";
 import Main from "./components/Main";
-import SignUp from "./components/SignUp";
-import AuthTest from "./components/AuthTest";
-//import PrivateRoute from "./components/PrivateRoute";
+import Profile from "./components/Profile";
+import ExternalApi from "./views/ExternalApi";
+import history from "./utils/history";
 
-const API = {
-  async getSession() {
-        const response = await fetch(`/api/authCheck`);
-        //const response = await res
-        console.log('response status: ', response.status);
-        console.log('response status is 200: ', response.status === 200);
-       // console.log("Hi");
-        return response.status;
-  }
-}
+// fontawesome
+import initFontAwesome from "./utils/initFontAwesome";
+initFontAwesome();
 
-function PrivateRoute({ children, ...rest }) {
-  console.log('hitting PrivateRoute');
-  return (
-    <Route
-      {...rest}
-      render={() =>
-        API.getSession === 200 ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login"
-            }}
-          />
-        )
-      }
-    />
-  );
-}
+
 
 function App() {
-	return (
-	  <AppProvider> 
-      <Router>
-      <div className="App">
-        <Nav/>
-          <Switch>
-           <Route path="/" exact activeClassName='is-active' component={Home}></Route>
-           <Route path="/login" activeClassName='is-active' component={Login}></Route>
-           <PrivateRoute path="/main" activeClassName='is-active'>
-             <Main/>
-           </PrivateRoute>
-           <Route path="/signup" activeClassName='is-active' component={SignUp}></Route>
-           <Route path="/authtest" activeClassName='is-active' component={AuthTest}></Route>
-          </Switch>
-      </div>
+  return (
+    <div className="App">
+      {/* Don't forget to include the history module */}
+      <Router history={history}>
+        <header>
+          <NavBar />
+        </header>
+        <Switch>
+          <Route path="/" exact  component={Home}  />
+          <PrivateRoute path="/main" component={Main} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/external-api" component={ExternalApi} />
+        </Switch>
       </Router>
-    </AppProvider> 
-	);
+    </div>
+  );
 }
 export default App;
