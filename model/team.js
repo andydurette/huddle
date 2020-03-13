@@ -18,7 +18,7 @@ class Team {
 	}
 
 	async getSports(){
-        let query = `select id, name from sport;`;
+		let query = "select id, name from sport;";
 		try {
 			let result = await this.pool.query(query);
 			return result;
@@ -29,7 +29,7 @@ class Team {
 	}
 
 	async getPlayerPositions(sportId){
-        let query = `select player_pos_id, player_pos_name from player_position where sports_id = ${sportId};`;
+		let query = `select player_pos_id, player_pos_name from player_position where sports_id = ${sportId};`;
 		try {
 			let result = await this.pool.query(query);
 			return result;
@@ -95,7 +95,7 @@ class Team {
 	}
 
 	async delete(teamId){
-		let query = "";
+		let query = `delete from team where id = ${teamId}`;
 		try {
 			await this.pool.query(query);
 			return 1;
