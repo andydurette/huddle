@@ -1,10 +1,11 @@
 $huddle-blue: #539bab;
+$huddle-blue-hover: #437982;
 
 @import url('https://fonts.googleapis.com/css?family=Graduate&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import "normalize.scss";
 @import "generalstyles.scss";
-@import "nav.scss";
+@import "navbar.scss";
 @import "home.scss";
-@import "login.scss";
+@import "profile.scss";
 @import "footer.scss";
