@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
 import Footer from "./Footer";
 
 function Home() {
@@ -13,11 +12,6 @@ function Home() {
                             See events from your coach, who will be at the game or past games scores all in one convient place.
                             Sign up for free and add your team members.
                         </p>
-                    </div>
-                    <div>
-                    <NavLink to='/signup'>
-                        <button>Join Now</button>
-                    </NavLink>
                     </div>
                 </div>
             </div>
