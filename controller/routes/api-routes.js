@@ -1,13 +1,15 @@
 const express = require("express");
 const isAuthenticated = require("../isAuthenticated");
-const User = require("../../model/user"); 
 const passport = require("../../config/authConfigLocal");
-const Team = require("../../model/team");
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
+const User = require("../../model/user");
+const Team = require("../../model/team");
+const Event = require("../../model/event");
 
 let user = new User();
 let team = new Team();
+let event = new Event();
 
 let apiRoutes = express.Router();
 
@@ -29,7 +31,7 @@ apiRoutes.get("/user/team/:userid/:teamid", isAuthenticated, async (req, res) =>
 	res.json(data);
 });
 
-apiRoutes.get("/user/email/:email", isAuthenticated, async (req, res) => {
+apiRoutes.get("/user/email/:email", async (req, res) => {
 	let email = req.params.email;
 	let data = await user.getInfoByEmail(email);
 	res.json(data);
@@ -89,6 +91,55 @@ apiRoutes.delete("/team/delete/:teamId", isAuthenticated, async (req, res) => {
 	res.json(data);
 });
 
+
+//event routes
+apiRoutes.get("/event/date/:id", isAuthenticated, async (req, res) => {
+	let eventId = req.params.id;
+	let data = await event.getDate(eventId);
+	res.json(data);
+});
+
+apiRoutes.get("/event/detail/:id", isAuthenticated, async (req, res) => {
+	let eventId = req.params.id;
+	let data = await event.getDetails(eventId);
+	res.json(data);
+});
+
+apiRoutes.post("/event/new/:id", isAuthenticated, async (req, res) => {
+	let teamId = req.params.id;
+	let eventType = req.body.eventType;
+	let eventDate = req.body.eventDate;
+	let venue = req.body.venue;
+	let eventName = req.body.eventName;
+	let competitorId = req.body.competitorId;
+	let competitorName = req.body.competitorName;
+	let data = await event.createNew(teamId, eventType, eventDate, venue, eventName, competitorId, competitorName);
+	res.json(data);
+});
+
+apiRoutes.delete("/event/delete/:id", isAuthenticated, async (req, res) => {
+	let eventId = req.params.id;
+	let data = await event.delete(eventId);
+	res.json(data);
+});
+
+apiRoutes.post("/event/newattend/:id", isAuthenticated, async (req, res) => {
+	let eventId = req.params.id;
+	let userId = req.body.userId;
+	let data = await event.createAttendanceRecord(eventId, userId);
+	res.json(data);
+});
+
+apiRoutes.put("/event/updateattend/:id", isAuthenticated, async (req, res) => {
+	let eventId = req.params.id;
+	let userId = req.body.userId;
+	let confirmationStatusId = req.body.confirmationStatusId;
+	let comment = comment.req.body;
+	let data = await event.createAttendanceRecord(eventId, userId, confirmationStatusId, comment);
+	res.json(data);
+});
+
+//getAnswerTypes, updateEvent
 
 
 
