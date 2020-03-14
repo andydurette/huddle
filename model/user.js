@@ -19,7 +19,7 @@ class User {
 	}
 
 	async getInfoByEmail(email){
-		let query = `select first_name, last_name, email
+		let query = `select id, first_name, last_name, email, password
                     from user
                     where email = '${email}';`;
 		try {
@@ -45,7 +45,7 @@ class User {
 	}
 
 	async createNew(firstName, lastName, email, password){
-		let query = `insert into user(first_name, last_name, email, password) values ('${firstName}','${lastName}','${email}','${password}');`;
+		let query = `insert into user(email, password) values ('${firstName}','${lastName}','${email}','${password}');`;
 		try {
 			await this.pool.query(query);
 			return 1;

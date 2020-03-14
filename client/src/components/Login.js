@@ -20,7 +20,7 @@ function Login() {
             e.preventDefault();
 
             let idInfopass = {
-                email: email,
+                username: email,
                 password: password
             }
 
@@ -39,8 +39,8 @@ function Login() {
 
 
     return (
-      <section id="wrapper" className="login"> 
-          <div id="wrapper-contents" >  
+      <section id="wrapper" className="login">
+          <div id="wrapper-contents" >
             <h1>Huddle Login</h1>
             <form onSubmit={(e) => API.handleSubmit(e)}>
                 <label htmlFor="email">Email:</label><br/>
@@ -48,7 +48,7 @@ function Login() {
                 <label htmlFor="password">Password:</label><br/>
                 <input type="password" id="password" name="password" onChange={(e) => handlePasswordChange(e)} value={password} /><br/><br/>
                 <input type="submit" value="Submit"></input>
-            </form> 
+            </form>
           </div>
           <Footer/>
       </section>

@@ -1,0 +1,74 @@
+header{
+  background-color: $huddle-blue;
+  color:white;
+
+  nav > div > p{
+    color:#fff;
+    font-weight:700;
+    font-size:1.5em;
+    font-family: 'Graduate', sans-serif;
+    margin:0;
+    padding-bottom:5px;
+    padding-right:15px;
+  }
+
+  button, a, .btn{
+    font-size:1.1rem;
+    font-weight:500;
+  }
+  .nav-container a{
+    color:white;
+  }
+  a.dropdown-profile{
+    color:black;
+  }
+  span.navbar-toggler-icon {
+    background-image: url("/img/h-menu.svg") !important;
+    height:30px;
+    width:30px;
+  }
+
+  .nav-item button, .nav-item .dropdown-menu a{
+    color: $huddle-blue;
+    border-color: $huddle-blue;
+    background-color: white;
+  }
+
+  .nav-item button:hover, .nav-item .dropdown-menu a:hover{
+    color: $huddle-blue;
+    border-color: $huddle-blue;
+    background-color: #d8e8ea;
+  }
+
+
+@media (max-width: 768px){
+     .nav-item a{
+      display:block;
+      text-decoration: none;
+      width:100%;
+      padding:10px 0;
+      border-bottom:1px solid transparent;
+    }
+    
+    .nav-item a:hover{
+      text-decoration: none;
+      border-bottom:1px solid white;
+    }
+  }
+}
+
+
+@media (min-width: 768px){
+  header{
+    .dropdown-menu{
+      left:-70px!important;
+    }
+    ul.navbar-nav{
+      padding-right:50px;
+    }
+    .nav-item{
+      display:flex;
+    }
+  }
+}
+

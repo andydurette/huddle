@@ -36,7 +36,7 @@ function MainAddUser() {
                     );
                 })}
             </div>
-            <Footer/>
+            {/* <Footer/> */}
         </section>
     )
 }

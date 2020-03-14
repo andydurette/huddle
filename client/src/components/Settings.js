@@ -6,7 +6,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import MainAddUser from './MainAddUser';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TeamMaker() {
+function Settings() {
 
 
   const classes = useStyles();
@@ -120,12 +119,7 @@ function TeamMaker() {
         </Select>
       </FormControl>
     </div>
-    <div>
-      
-    <MainAddUser/>
-    </div>
     <input type="submit" value="Submit"></input>
-    
             </form> 
           </div>
           <Footer/>
@@ -133,4 +127,4 @@ function TeamMaker() {
     )
 }
 
-export default TeamMaker;
+export default Settings;

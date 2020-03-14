@@ -1,35 +1,43 @@
 import React from "react";
-import {AppProvider} from './utils/AppContext';
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Nav from "./components/Nav";
 import Home from "./components/Home";
-import Login from "./components/Login";
+
+import NavBar from "./components/NavBar";
+// Private Route
+import PrivateRoute from "./components/PrivateRoute";
+
+// New - import the React Router components, and the Profile page component
+import { Router, Route, Switch } from "react-router-dom";
 import Main from "./components/Main";
-import SignUp from "./components/SignUp";
-import AuthTest from "./components/AuthTest";
-import Teamviewer from "./components/TeamViewer";
+import Profile from "./components/Profile";
+import ExternalApi from "./views/ExternalApi";
+import history from "./utils/history";
 import TeamMaker from "./components/TeamMaker";
+import TeamViewer from "./components/TeamViewer";
+
+// fontawesome
+import initFontAwesome from "./utils/initFontAwesome";
+initFontAwesome();
+
+
 
 function App() {
-	
-	return (
-	  <AppProvider> 
-      <Router>
-      <div className="App">
-        <Nav/>
-          <Switch>
-           <Route path="/" exact activeClassName='is-active' component={Home}></Route>
-           <Route path="/login" activeClassName='is-active' component={Login}></Route>
-           <Route path="/main" activeClassName='is-active' component={Main}></Route>
-           <Route path="/signup" activeClassName='is-active' component={SignUp}></Route>
-           <Route path="/authtest" activeClassName='is-active' component={AuthTest}></Route>
-           <Route path="/teamview" activeClassName='is-active' component={Teamviewer}></Route>
-           <Route path="/teammake" activeClassName='is-active' component={TeamMaker}></Route>
-          </Switch>
-      </div>
+  return (
+    <div className="App">
+      {/* Don't forget to include the history module */}
+      <Router history={history}>
+        <header>
+          <NavBar />
+        </header>
+        <Switch>
+          <Route path="/" exact  component={Home}  />
+          <Route path="/teammake" exact  component={TeamMaker}  />
+          <Route path="/teamview" exact  component={TeamViewer}  />
+          <PrivateRoute path="/main" component={Main} />
+          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/external-api" component={ExternalApi} />
+        </Switch>
       </Router>
-    </AppProvider> 
-	);
+    </div>
+  );
 }
-
 export default App;
