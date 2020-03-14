@@ -46,10 +46,12 @@ apiRoutes.get("/user/team/:userid/:teamid", isAuthenticated, async (req, res) =>
 	res.json(data);
 });
 
-apiRoutes.get("/user/email/:email", checkJwt, async (req, res) => {
-	let email = req.params.email;
-	let data = await user.getInfoByEmail(email);
-	res.json(data);
+apiRoutes.post("/user/email", checkJwt, async (req, res) => {
+	let email = req.body;
+	console.log(req.body);
+	let data = await user.getInfoByEmail(email.userEmail);
+	console.log(data[0][0].id);
+	res.json(data[0][0].id);
 });
 
 apiRoutes.get("/user/info/:id", isAuthenticated,  async (req, res) => {
