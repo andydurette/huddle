@@ -1,5 +1,6 @@
 const express = require("express");
 const isAuthenticated = require("../isAuthenticated");
+const checkJwt = require("../checkJwt");
 const passport = require("../../config/authConfigLocal");
 const bcrypt = require("bcryptjs");
 const saltRounds = 10;
@@ -22,6 +23,20 @@ apiRoutes.post("/login", passport.authenticate("local", {failureMessage: "Incorr
 	res.send("Success");
 });
 
+apiRoutes.get("/test", checkJwt, function(req, res){
+	res.json({"response": "The user is authenticated"});
+});
+
+apiRoutes.get("/external", checkJwt, (req, res) => {
+	console.log("checking the route...");
+	res.send({
+		msg: "Your Access Token was successfully validated!"
+	});
+});
+
+// apiRoutes.get("/api/user/email/:email", checkJwt, function(req, res){
+// 	res.json({"response": "The user is authenticated"});
+// });
 
 //user routes
 apiRoutes.get("/user/team/:userid/:teamid", isAuthenticated, async (req, res) => {
@@ -31,7 +46,7 @@ apiRoutes.get("/user/team/:userid/:teamid", isAuthenticated, async (req, res) =>
 	res.json(data);
 });
 
-apiRoutes.get("/user/email/:email", async (req, res) => {
+apiRoutes.get("/user/email/:email", checkJwt, async (req, res) => {
 	let email = req.params.email;
 	let data = await user.getInfoByEmail(email);
 	res.json(data);
