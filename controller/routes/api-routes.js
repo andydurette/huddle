@@ -54,12 +54,12 @@ apiRoutes.post("/user/email", checkJwt, async (req, res) => {
 	let data = await user.getInfoByEmail(email);
 	if (data[0].length < 1){
 		let newData = await user.createNewEmail(email);
-		console.log("New user created - ID: ",newData[0].insertId)
+		console.log("New user created - ID: ",newData[0].insertId);
 		res.json(newData[0].insertId);
-	 } else {
+	}else{
 		console.log("The user ID: ",data[0][0].id);
 		res.json(data[0][0].id);
-	 }
+	}
 });
 
 apiRoutes.get("/user/info/:id", isAuthenticated,  async (req, res) => {
