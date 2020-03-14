@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
-const apiRoutes = require("./controller/api-routes-test");
+const apiRoutes = require("./controller/routes/api-routes");
 const isAuthenticated = require("./controller/isAuthenticated");
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +31,7 @@ app.use(cors({ origin: origin }));
 // Accept cross-origin requests from the frontend app
 // Send every other request to the React app
 // Define any API routes before this runs
-app.use(apiRoutes);
+app.use("/api", apiRoutes);
 app.get("*", isAuthenticated, (req, res) => {
 	res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
