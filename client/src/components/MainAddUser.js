@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Footer from "./Footer";
+// import Footer from "./Footer";
 import AddUser from "./AddUsers/AddUser";
 import User from "./AddUsers/User";
 
