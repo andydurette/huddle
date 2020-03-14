@@ -94,8 +94,13 @@ class Event {
 		}
 	}
 
-	async updateEvent(){
-		let query = "";
+	async updateEvent(eventId, teamId, eventTypeId, eventDate, venueId, eventName, competitorId, competitorName, scoreOur, scoreTheir){
+		let query = `
+		update event set team_id = ${teamId}, event_type_id = ${eventTypeId}, event_date = ${eventDate}, venue_id = ${venueId}, 
+		event_name = ${eventName}, competitor_id = ${competitorId}, competitior_name = ${competitorName}, 
+		score_our = ${scoreOur}, score_their = ${scoreTheir}
+		where event_id = ${eventId};
+		`;
 		try {
 			await this.pool.query(query);
 			return 1;
