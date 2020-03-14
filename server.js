@@ -16,7 +16,15 @@ if (process.env.NODE_ENV === "production") {
 }
 // Start of Auth0 Setup data
 // Accept cross-origin requests from the frontend app
-app.use(cors({ origin: "http://localhost:3000" }));
+let origin;
+
+if (process.env.NODE_ENV === "production") {
+	origin = "https://lets-huddle.herokuapp.com/";
+} else{
+	origin = "http://localhost:3000";
+}
+
+app.use(cors({ origin: origin }));
 // Set up Auth0 configuration
 // Define an endpoint that must be called with an access token
 // End of Auth0 Setup data
