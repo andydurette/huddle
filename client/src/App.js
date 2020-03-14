@@ -38,15 +38,16 @@ function App() {
       userObtained.current = true;
       //Grabs user email value to send to our server route
       let userEmail = user.email
+      console.log(user.email);
       // Use async call to call out to route with the user email in it's body
       let idCall = async () => {
         const token = await getTokenSilently();
-        const res = await fetch("/api/userfind", {
+        const res = await fetch("/api/user/email", {
           method: "POST",
           body: JSON.stringify({userEmail}),
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
           });
-          return res
+          return res.json();
       }
       // Response from api call finally stores api call response as the database Id
       // eslint-disable-next-line
