@@ -13,6 +13,7 @@ export const Auth0Provider = ({
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [user, setUser] = useState();
+  const [dbId, setDbId] = useState();
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
@@ -72,6 +73,7 @@ export const Auth0Provider = ({
         user,
         loading,
         popupOpen,
+        id:[dbId, setDbId],
         loginWithPopup,
         handleRedirectCallback,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
