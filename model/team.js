@@ -38,6 +38,21 @@ class Team {
 			return error;
 		}
 	}	
+
+	async getTeamByDetails(name, sportId){
+		let query = `select t.id, t.team_name, t.team_description, s.id as 'sport_id', s.name
+		from team t
+		left outer join sport s on t.sports_id = s.id
+		where t.team_name = '${name}' and sports_id = ${sportId};`;
+		try {
+			let result = await this.pool.query(query);
+			//console.log('query result: ', result);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}
 	
 	async getTeam(teamId){
 		let query = `select t.id, t.name, t.description, s.name, 
@@ -88,6 +103,48 @@ class Team {
 		try {
 			await this.pool.query(query);
 			return 1;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+
+	async addTeamUser(teamId, userId, userTypeId){
+		let query = `insert into team_user (team_id, user_id, user_type_id) values
+		(${teamId}, ${userId}, ${userTypeId});`;
+		try {
+			await this.pool.query(query);
+			return 1;
+		}
+		catch(error) {
+			return error;
+		}
+	}	
+
+	async getTeamUser(userId){
+		let query = `select tu.*, ut.type_name from team_user tu 
+		join user_type ut on ut.id = tu.user_type_id
+		where user_id = ${userId};`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+
+	async getTeamAdmin(userId){
+		let query = `
+        select tu.*, t.team_name, t.team_description, t.sports_id, s.name, ut.type_name 
+		from team_user tu
+		join team t on tu.team_id = t.id 
+		join user_type ut on ut.id = tu.user_type_id
+        join sport s on s.id = t.sports_id
+		where tu.user_id = ${userId} and tu.user_type_id = 1;`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
 		}
 		catch(error) {
 			return error;

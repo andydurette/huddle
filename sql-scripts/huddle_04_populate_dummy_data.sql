@@ -2,6 +2,7 @@ use huddle_db;
 
 insert into user(first_name, last_name, email, password) values ('TestUser','Test','test@gmail.com','12345');
 
+delete from user;
 
 select tu.user_type_id
 from team_user tu 
@@ -58,6 +59,35 @@ join confirmation_status cs on cs.id = eu.confirmation_status_id
 join user u on u.id = eu.user_id
 where e.event_id = '';
 
-select * 
-from venue;
+select * from venue where id = '';
+ 
+
+
+select * from sport;
+
+select * from team;
+
+
+select t.id, t.team_name, t.team_description, s.name, 
+		concat(u.first_name, ' ', u.last_name) as 'member', pp.player_pos_name
+		from team t
+		left outer join team_member tm on tm.team_id = t.id
+		left outer join user u on tm.user_id = u.id
+		left outer join player_position pp on tm.player_pos_id = pp.player_pos_id
+		left outer join sport s on t.sports_id = s.id
+		where t.team_name = 'Test team' and t.sports_id = 2;
+        
+        
+        select t.id, t.team_name, t.team_description, s.id, s.name
+		from team t
+		left outer join team_member tm on tm.team_id = t.id
+		left outer join sport s on t.sports_id = s.id
+		where t.team_name = 'Test team' and t.sports_id = 2;
+        
+        
+        select t.id, t.team_name, t.team_description, s.id, s.name
+		from team t
+		left outer join team_member tm on tm.team_id = t.id
+		left outer join sport s on t.sports_id = s.id
+		where t.team_name = 'Test team THREE' and sports_id = 3;
 

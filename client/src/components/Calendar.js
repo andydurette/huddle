@@ -33,7 +33,7 @@ function Calendar() {
     
     return (
     <React.Fragment>    
-        {id[0] === '' ?  
+        {userInfo === '' ?  
        'Loading...'
         : (     
         <section id="wrapper" className="Calendar">
