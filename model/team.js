@@ -151,6 +151,23 @@ class Team {
 		}
 	}
 
+	async getTeamByUser(userId){
+		let query = `
+        select tu.*, t.team_name, t.team_description, t.sports_id, s.name, ut.type_name 
+		from team_user tu
+		join team t on tu.team_id = t.id 
+		join user_type ut on ut.id = tu.user_type_id
+        join sport s on s.id = t.sports_id
+		where tu.user_id = ${userId};`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+
 	async delete(teamId){
 		let query = `delete from team where id = ${teamId}`;
 		try {
