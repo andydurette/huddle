@@ -5,7 +5,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 import MainAddUser from './MainAddUser';
 
 const useStyles = makeStyles(theme => ({
@@ -84,7 +83,7 @@ function TeamMaker() {
     return (
       <section id="wrapper" className="login"> 
           <div id="wrapper-contents" >  
-            <h1>Team regestration</h1>
+            <h1>Team registration</h1>
             <form onSubmit={(e) => API.handleSubmit(e)}>
                 <label htmlFor="name">Team name:</label><br/>
                 <input type="text" id="name" name="name" onChange={(e) => handleNameChange(e)} value={name} /><br/>
@@ -96,12 +95,10 @@ function TeamMaker() {
                
 
             <div>
-      <Button className={classes.button} onClick={handleOpen}>
-        Open the select
-      </Button>
+       
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-controlled-open-select-label">Sport</InputLabel>
-        <Select
+       <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
@@ -110,13 +107,12 @@ function TeamMaker() {
           value={sport}
           onChange={handleChange}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={1}>Soccer</MenuItem>
-          <MenuItem value={2}>Basketball</MenuItem>
-          <MenuItem value={3}>Baseball</MenuItem>
-          <MenuItem value={4}>Hockey</MenuItem>
+         
+          
+          <MenuItem value={1}> <em>Basketball</em></MenuItem>
+          <MenuItem value={2}>Baseball</MenuItem>
+          <MenuItem value={3}>Hockey</MenuItem>
+          <MenuItem value={4}>Soccer</MenuItem>
         </Select>
       </FormControl>
     </div>
