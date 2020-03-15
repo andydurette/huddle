@@ -56,6 +56,18 @@ class User {
         
 	}
 
+	async createNewEmail(email){
+		let query = `insert into user (email) values ('${email}');`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error){
+			return error;
+		}
+        
+	}
+
 	async exists(email){
 		let query = `select *
                     from user
