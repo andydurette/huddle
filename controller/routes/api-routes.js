@@ -62,10 +62,11 @@ apiRoutes.post("/user/email", checkJwt, async (req, res) => {
 	}
 });
 
-apiRoutes.get("/user/info/:id", isAuthenticated,  async (req, res) => {
-	let id = req.params.id;
+apiRoutes.post("/user/info", checkJwt,  async (req, res) => {
+	let id = req.body.id;
+	console.log(id);
 	let data = await user.getInfoById(id);
-	console.log(data);
+	//console.log(data);
 	res.json(data);
 });
 
