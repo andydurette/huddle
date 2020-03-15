@@ -31,8 +31,6 @@ function App() {
   
   useEffect(() => {
 
-
-
     // If user doesn't exist yet and userObtained.current value is false which is the original value we run the block inside, shouldo nly ever run once with this check.
     if( user && userObtained.current === false ){
       userObtained.current = true;
@@ -51,7 +49,7 @@ function App() {
       }
       // Response from api call finally stores api call response as the database Id
       // eslint-disable-next-line
-      idCall().then((res) => setDbId( dbId = res ));;
+      idCall().then((res) => setDbId( dbId = res ));
     }
   });
 
