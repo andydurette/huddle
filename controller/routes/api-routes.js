@@ -70,7 +70,7 @@ apiRoutes.post("/user/info", checkJwt,  async (req, res) => {
 	res.json(data);
 });
 
-apiRoutes.post("/user/signup/", isAuthenticated, async (req, res) => {
+apiRoutes.post("/user/signup", isAuthenticated, async (req, res) => {
 	let firstName = req.body.firstName;
 	let lastName = req.body.lastName;
 	let email = req.body.email;
@@ -81,15 +81,24 @@ apiRoutes.post("/user/signup/", isAuthenticated, async (req, res) => {
 
 
 //team routes
-apiRoutes.post("/team/new/", isAuthenticated, async (req, res) => {
+apiRoutes.post("/team/new", checkJwt, async (req, res) => {
 	let name = req.body.name;
 	let description = req.body.description;
 	let sport = req.body.sport;
 	let data = await team.createNew(name, description, sport);
-	res.json(data);
+	if (data === 1) {
+		//console.log("name: ", name);
+		//console.log("sport: ", sport);
+		let teamResult = await team.getTeamByDetails(name, sport);
+		//console.log('returned from the DB: ', teamResult);
+		res.json(teamResult[0][0]);
+	} else {
+		res.status(500).send('Uh-oh');
+	}
+	
 });
 
-apiRoutes.post("/team/newmember/", isAuthenticated, async (req, res) => {
+apiRoutes.post("/team/newmember", checkJwt, async (req, res) => {
 	let teamId = req.body.team;
 	let userId = req.body.user;
 	let positionId = req.body.position;
