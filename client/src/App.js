@@ -8,7 +8,7 @@ import { useAuth0 } from "./react-auth0-spa";
 
 // New - import the React Router components, and the Profile page component
 import { Router, Route, Switch } from "react-router-dom";
-import Main from "./components/Main";
+import Calendar from "./components/Calendar";
 import Profile from "./components/Profile";
 import ExternalApi from "./views/ExternalApi";
 import history from "./utils/history";
@@ -69,7 +69,7 @@ function App() {
           <Route path="/" exact  component={Home}  />
           <Route path="/teammake" exact  component={TeamMaker}  />
           <Route path="/teamview" exact  component={TeamViewer}  />
-          <PrivateRoute path="/main" component={Main} />
+          <PrivateRoute path="/calendar" component={Calendar} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
