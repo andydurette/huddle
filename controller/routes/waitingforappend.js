@@ -1,4 +1,4 @@
-/*const express = require("express");
+const express = require("express");
 const isAuthenticated = require("../isAuthenticated");
 const passport = require("../../config/authConfigLocal");
 const yelp = require("../../api/yelp");
@@ -30,6 +30,7 @@ const callApi = async () => {
     }
   };
 
+//search venue basing the type of sport and location  
 apiRoutes.post("/api/venues/search", isAuthenticated, async function(req, res){
 	let location = req.body.location;
 	let term = req.body.term;
@@ -46,12 +47,15 @@ apiRoutes.post("/api/venues/search", isAuthenticated, async function(req, res){
 	res.json(results);
 });
 
+//get detail from select venue
 apiRoutes.get("/api/venues/:businessId", isAuthenticated, async function(req, res){
 	let businessId = req.params.id;
 	let response = await yelp.getVenueDetail(businessId);
 	res.json(response.data);
 });
 
+
+//add select venue to database
 apiRoutes.post('/api/event/venue/add', isAuthenticated, async function(req, res){
 	let businessId = req.params.id;
 	response =  await yelp.getVenueDetail(businessId);
@@ -69,23 +73,26 @@ apiRoutes.post('/api/event/venue/add', isAuthenticated, async function(req, res)
 });
 
 
+
+//update selected venue to event page
 apiRoutes.post("/api/event/venue/add", isAuthenticated, async function(req, res){
-	let businessId = req.param.id;
+	let businessId = req.params.id;
 	response = await venue.getDetails(businessId);
-	let eventId = req.param.event_id;
+	let eventId = req.params.event_id;
 	let venueId = res.venue_id
 	result = await event.updateEvent(eventId, venueId);
 	res.json(result);
 });
 
 
+//delete venue from event and database
 apiRoutes.delete("api/event/:venuesId", isAuthenticated, async (req, res) => {
-	let eventId = req.param.event_id;
-	let id = req.param.venue_id
+	let eventId = req.params.event_id;
+	let id = req.params.venue_id
 	let venueId = null;
 	response = await event.updateEvent(eventId, venueId);
 	result = await venue.delete(id);
-	res.json(data);
+	res.json(result);
 });
 
 apiRoutes.get("/api/weather", isAuthenticated, async function(req, res){
@@ -108,4 +115,4 @@ apiRoutes.get("/api/weather", isAuthenticated, async function(req, res){
 });
 
 
-module.exports = apiRoutes; */
+module.exports = apiRoutes;
