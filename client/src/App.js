@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import Home from "./components/Home";
+
 import NavBar from "./components/NavBar";
 // Private Route
 import PrivateRoute from "./components/PrivateRoute";
@@ -11,6 +12,8 @@ import Main from "./components/Main";
 import Profile from "./components/Profile";
 import ExternalApi from "./views/ExternalApi";
 import history from "./utils/history";
+import TeamMaker from "./components/TeamMaker";
+import TeamViewer from "./components/TeamViewer";
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
@@ -64,6 +67,8 @@ function App() {
         </header>
         <Switch>
           <Route path="/" exact  component={Home}  />
+          <Route path="/teammake" exact  component={TeamMaker}  />
+          <Route path="/teamview" exact  component={TeamViewer}  />
           <PrivateRoute path="/main" component={Main} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
