@@ -5,7 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const PORT = process.env.PORT || 3036;
 const app = express();
-const apiRoutes = require("./controller/api-routes-test");
+const apiRoutes = require("./controller/routes/api-routes");
 const isAuthenticated = require("./controller/isAuthenticated");
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -16,14 +16,22 @@ if (process.env.NODE_ENV === "production") {
 }
 // Start of Auth0 Setup data
 // Accept cross-origin requests from the frontend app
-app.use(cors({ origin: "http://localhost:3000" }));
+let origin;
+
+if (process.env.NODE_ENV === "production") {
+	origin = "https://lets-huddle.herokuapp.com/";
+} else{
+	origin = "http://localhost:3000";
+}
+
+app.use(cors({ origin: origin }));
 // Set up Auth0 configuration
 // Define an endpoint that must be called with an access token
 // End of Auth0 Setup data
 // Accept cross-origin requests from the frontend app
 // Send every other request to the React app
 // Define any API routes before this runs
-app.use(apiRoutes);
+app.use("/api", apiRoutes);
 app.get("*", isAuthenticated, (req, res) => {
 	res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
