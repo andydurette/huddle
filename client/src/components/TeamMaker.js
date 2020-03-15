@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Footer from "./Footer";
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
+//import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import MainAddUser from './MainAddUser';
+//import MainAddUser from './MainAddUser';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -57,47 +57,43 @@ function TeamMaker() {
     //     setSport( sport = e.target.value);
     //   };
 
-    const API = {
-        async handleSubmit(e) {
-            e.preventDefault();
+    // const API = {
+    //     async handleSubmit(e) {
+    //         e.preventDefault();
 
-            let idInfopass = {
-                name:  name,
-                description:  description,
-                sport: sport,
-            }
+    //         let idInfopass = {
+    //             name:  name,
+    //             description:  description,
+    //             sport: sport,
+    //         }
 
-            const res = await fetch("/team/new/", {
-                method: "POST",
-                body: JSON.stringify(idInfopass),
-                headers: { "Content-Type": "application/json" }
-            });
+    //         const res = await fetch("/team/new/", {
+    //             method: "POST",
+    //             body: JSON.stringify(idInfopass),
+    //             headers: { "Content-Type": "application/json" }
+    //         });
             
-            const postResponse = await res;
+    //         const postResponse = await res;
 
-            console.log(postResponse);
-        }
-    }
+    //         console.log(postResponse);
+    //     }
+    // }
 
 
     return (
       <section id="wrapper" className="login"> 
           <div id="wrapper-contents" >  
             <h1>Team registration</h1>
-            <form onSubmit={(e) => API.handleSubmit(e)}>
+                
+                {/* <input type="text" id="sport" name="sport" onChange={(e) => hand(e)} value={sport} /><br/> */}
+                
+                <FormControl className={classes.formControl}>
                 <label htmlFor="name">Team name:</label><br/>
                 <input type="text" id="name" name="name" onChange={(e) => handleNameChange(e)} value={name} /><br/>
                 <label htmlFor="description">description:</label><br/>
                 <input type="text" id="description" name="description" onChange={(e) => handleDesChange(e)} value={description} /><br/>
-                
-                {/* <input type="text" id="sport" name="sport" onChange={(e) => hand(e)} value={sport} /><br/> */}
-                
-               
-
-            <div>
-       
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Sport</InputLabel>
+      
+        <label>Sports</label>
        <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
@@ -115,14 +111,17 @@ function TeamMaker() {
           <MenuItem value={4}>Soccer</MenuItem>
         </Select>
       </FormControl>
+
+            <div>
+       
+      
     </div>
     <div>
       
-    <MainAddUser/>
+    {/* <MainAddUser/> */}
     </div>
     <input type="submit" value="Submit"></input>
     
-            </form> 
           </div>
           <Footer/>
       </section>
