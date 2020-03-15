@@ -11,7 +11,7 @@ if (process.env.JAWSDB_URL) {
 		user: "root",
 		password: "12345",
 		database: "huddle_db",
-		connectionLimit: 100		
+		connectionLimit: 100	
 	});
 }
 
