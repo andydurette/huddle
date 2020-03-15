@@ -136,9 +136,11 @@ class Team {
 
 	async getTeamAdmin(userId){
 		let query = `
-		select tu.*, t.team_name, t.team_description, t.sports_id, ut.type_name from team_user tu
+        select tu.*, t.team_name, t.team_description, t.sports_id, s.name, ut.type_name 
+		from team_user tu
 		join team t on tu.team_id = t.id 
 		join user_type ut on ut.id = tu.user_type_id
+        join sport s on s.id = t.sports_id
 		where tu.user_id = ${userId} and tu.user_type_id = 1;`;
 		try {
 			let result = await this.pool.query(query);
