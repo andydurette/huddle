@@ -44,16 +44,15 @@ class User {
 		}
 	}
 
-	async createNew(firstName, lastName, email, password){
-		let query = `insert into user(email, password) values ('${firstName}','${lastName}','${email}','${password}');`;
+	async createNew(firstName, email){
+		let query = `insert into user(first_name, email) values ('${firstName}','${email}');`;
 		try {
-			await this.pool.query(query);
-			return 1;
+			let result = await this.pool.query(query);
+			return result;
 		}
 		catch(error){
 			return error;
-		}
-        
+		} 
 	}
 
 	async createNewEmail(email){
