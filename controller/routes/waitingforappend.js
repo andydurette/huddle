@@ -59,7 +59,7 @@ apiRoutes.get("/api/venues/:businessId", isAuthenticated, async function(req, re
 
 
 //add select venue to database
-apiRoutes.post("/api/event/venue/add", isAuthenticated, async function(req, res){
+apiRoutes.post("/api/event/venue/:id", isAuthenticated, async function(req, res){
 	let businessId = req.params.id;
 	let data =  await yelp.getVenueDetail(businessId);
 	let name = data.business.name.replace("'","''");
@@ -78,7 +78,7 @@ apiRoutes.post("/api/event/venue/add", isAuthenticated, async function(req, res)
 
 
 //update selected venue to event page
-apiRoutes.post("/api/event/venue/add", isAuthenticated, async function(req, res){
+apiRoutes.post("/api/event/venue/:id", isAuthenticated, async function(req, res){
 	let businessId = req.params.id;
 	let data = await venue.getDetails(businessId);
 	let eventId = req.params.event_id;
@@ -89,12 +89,12 @@ apiRoutes.post("/api/event/venue/add", isAuthenticated, async function(req, res)
 
 
 //delete venue from event and database
-apiRoutes.delete("api/event/:venuesId", isAuthenticated, async (req, res) => {
-	let eventId = req.params.event_id;
-	let id = req.params.venue_id;
+apiRoutes.delete("api/event/:id", isAuthenticated, async (req, res) => {
+	let eventId = req.params.id;
+	let venueid = req.params.venue_id;
 	let venueId = null;
 	let data = await event.updateEvent(eventId, venueId);
-	let results = await venue.delete(id);
+	let results = await venue.delete(venueid);
 	res.json(data, results);
 });
 
