@@ -55,7 +55,7 @@ apiRoutes.post("/user/email", checkJwt, async (req, res) => {
 	if (data[0].length < 1){
 		let newData = await user.createNew(name, email);
 		console.log("New user created - ID: ",newData[0].insertId);
-		console.log('newData: ', newData[0].insertId);
+		console.log("newData: ", newData[0].insertId);
 		res.json(newData[0].insertId);
 	}else{
 		console.log("The user ID: ",data[0][0].id);
@@ -107,6 +107,21 @@ apiRoutes.post("/team/new", checkJwt, async (req, res) => {
 		res.status(500).send("Uh-oh");
 	}
 	
+});
+
+apiRoutes.post("/teamCheck", checkJwt, async (req, res) => {
+	let userId = req.body.userId;
+	let data = await team.getTeamByUser(userId);
+	console.log("has teams: ", data[0]);
+	if (data[0]) {
+		if (data[0].length > 0) {
+			res.json({"hasTeams": true});
+		} else {
+			res.send({"hasTeams": false});
+		}
+	} else {
+		res.send({"hasTeams": false});
+	}
 });
 
 apiRoutes.post("/team/newmember", checkJwt, async (req, res) => {
