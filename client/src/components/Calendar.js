@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSettingsModel } from "@syncfusion/ej2-react-schedule";
+import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
 import Footer from "./Footer";
 
 import { useAuth0 } from "../react-auth0-spa";
