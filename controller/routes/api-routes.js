@@ -50,10 +50,12 @@ apiRoutes.get("/user/team/:userid/:teamid", checkJwt, async (req, res) => {
 //      else if the email exists, it sends back the user ID
 apiRoutes.post("/user/email", checkJwt, async (req, res) => {
 	let email = req.body.userEmail;
+	let name = req.body.userName;
 	let data = await user.getInfoByEmail(email);
 	if (data[0].length < 1){
-		let newData = await user.createNewEmail(email);
+		let newData = await user.createNew(name, email);
 		console.log("New user created - ID: ",newData[0].insertId);
+		console.log('newData: ', newData[0].insertId);
 		res.json(newData[0].insertId);
 	}else{
 		console.log("The user ID: ",data[0][0].id);
