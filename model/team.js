@@ -54,15 +54,17 @@ class Team {
 		}
 	}
 	
-	async getTeam(teamId){
-		let query = `select t.id, t.name, t.description, s.name, 
-		concat(u.first_name, ' ', u.last_name) as 'member', pp.player_pos_name
+	async getTeam(userId){
+		let query = `
+        select t.id as 'team_id', t.team_name, t.team_description, s.id as 'sport_id', s.name as 'sport', 
+		u.id as 'user_id', u.first_name as 'member', pp.player_pos_id, pp.player_pos_name
 		from team t
-		join team_member tm on tm.team_id = t.id
-		join user u on tm.user_id = u.id
-		join player_position pp on tm.player_pos_id = pp.player_pos_id
-		join sport s on t.sports_id = s.id
-		where t.id = ${teamId};`;
+        join team_user tu on tu.team_id = t.id 
+		left outer join team_member tm on tm.team_id = t.id
+		left outer join user u on tm.user_id = u.id
+		left outer join player_position pp on tm.player_pos_id = pp.player_pos_id
+		left outer join sport s on t.sports_id = s.id
+		where tu.user_id = ${userId};`;
 		try {
 			let result = await this.pool.query(query);
 			return result;
