@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React/*, {useEffect, useState}*/ from 'react';
 import { useAuth0 } from "../react-auth0-spa";
 import Footer from "./Footer";
 
 function TeamView() {
 
-  const {id, getTokenSilently} = useAuth0();
-  let [dbId /*, setDbId*/] =  id;
+  const {id/*, getTokenSilently*/} = useAuth0();
+  /*let [dbId , setDbId] =  id; */
 
   if (id === '') {
     return <div>Loading...</div>;
