@@ -124,10 +124,51 @@ apiRoutes.post("/teamCheck", checkJwt, async (req, res) => {
 	}
 });
 
+apiRoutes.post("/teamInfo", checkJwt, async (req, res) => {
+	let userId = req.body.userId;
+	let teamResult = await team.getTeam(userId);
+	if (teamResult[0]) {
+		if (teamResult[0].length > 0) {
+			res.json(teamResult[0]);
+		} else {
+			res.json({"error":"This team does not exist"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
+});
+
+apiRoutes.post("/allPositions", checkJwt, async (req, res) => {
+	let sportId = req.body.sportId;
+	let posResult = await team.getPlayerPositions(sportId);
+	if (posResult[0]) {
+		if (posResult[0].length > 0) {
+			res.json(posResult[0]);
+		} else {
+			res.json({"error":"This sport does not exist"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
+});
+
+apiRoutes.get("/freeUsers", checkJwt, async (req, res) => {
+	let userResult = await user.getAllWithoutTeam();
+	if (userResult[0]) {
+		if (userResult[0].length > 0) {
+			res.json(userResult[0]);
+		} else {
+			res.json({"error":"No free users left :("});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
+});
+
 apiRoutes.post("/team/newmember", checkJwt, async (req, res) => {
-	let teamId = req.body.team;
-	let userId = req.body.user;
-	let positionId = req.body.position;
+	let teamId = req.body.teamId;
+	let userId = req.body.userId;
+	let positionId = req.body.positionId;
 	let data = await team.addMember(teamId, userId, positionId);
 	res.json(data);
 });
@@ -139,9 +180,9 @@ apiRoutes.put("/team/playerposition/:userId/:positionId", checkJwt, async (req, 
 	res.json(data);
 });
 
-apiRoutes.delete("/team/deletemember/:teamId/:userId", checkJwt, async (req, res) => {
-	let teamId = req.params.teamid;
-	let userId = req.params.userid;
+apiRoutes.delete("/team/member", checkJwt, async (req, res) => {
+	let teamId = req.body.teamId;
+	let userId = req.body.userId;
 	let data = await team.removeMember(teamId, userId);
 	res.json(data);
 });
