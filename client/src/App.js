@@ -13,7 +13,7 @@ import Profile from "./components/Profile";
 import ExternalApi from "./views/ExternalApi";
 import history from "./utils/history";
 import TeamMaker from "./components/TeamMaker";
-import TeamViewer from "./components/TeamViewer";
+import TeamView from "./components/TeamView";
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
@@ -39,13 +39,14 @@ function App() {
       userObtained.current = true;
       //Grabs user email value to send to our server route
       let userEmail = user.email
+      let userName = user.nickname
       console.log(user.email);
       // Use async call to call out to route with the user email in it's body
       let idCall = async () => {
         const token = await getTokenSilently();
         const res = await fetch("/api/user/email", {
           method: "POST",
-          body: JSON.stringify({userEmail}),
+          body: JSON.stringify({userEmail:userEmail, userName: userName}),
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
           });
           return res.json();
@@ -67,10 +68,10 @@ function App() {
         </header>
         <Switch>
           <Route path="/" exact  component={Home}  />
-          <Route path="/teammake" exact  component={TeamMaker}  />
-          <Route path="/teamview" exact  component={TeamViewer}  />
+          <PrivateRoute path="/teammake" exact  component={TeamMaker}  />
+          <PrivateRoute path="/teamview" exact  component={TeamView}  />
           <PrivateRoute path="/calendar" component={Calendar} />
-          <PrivateRoute path="/profile" component={Profile} />
+          <PrivateRoute path="/profile"  component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
       </Router>
