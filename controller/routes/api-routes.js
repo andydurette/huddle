@@ -114,7 +114,7 @@ apiRoutes.post("/team/new", checkJwt, async (req, res) => {
 apiRoutes.post("/teamCheck", checkJwt, async (req, res) => {
 	let userId = req.body.userId;
 	let data = await team.getTeamByUser(userId);
-	console.log("has teams: ", data[0]);
+	//console.log("has teams: ", data[0]);
 	if (data[0]) {
 		if (data[0].length > 0) {
 			res.json({"hasTeams": true});

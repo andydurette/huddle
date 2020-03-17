@@ -8,12 +8,13 @@ import { useAuth0 } from "./react-auth0-spa";
 
 // New - import the React Router components, and the Profile page component
 import { Router, Route, Switch } from "react-router-dom";
-import Calendar from "./components/Calendar";
 import Profile from "./components/Profile";
 import ExternalApi from "./views/ExternalApi";
 import history from "./utils/history";
 import TeamMaker from "./components/TeamMaker";
 import TeamView from "./components/TeamView";
+import EventView from "./components/EventView";
+import MessageModal from './components/MessageModal';
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
@@ -40,13 +41,13 @@ function App() {
       //Grabs user email value to send to our server route
       let userEmail = user.email
       let userName = user.nickname
-      console.log(user.email);
+      //console.log(user.email);
       // Use async call to call out to route with the user email in it's body
       let idCall = async () => {
         const token = await getTokenSilently();
         const res = await fetch("/api/user/email", {
           method: "POST",
-          body: JSON.stringify({userEmail:userEmail, userName: userName}),
+          body: JSON.stringify({userEmail, userName}),
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
           });
           return res.json();
@@ -70,11 +71,12 @@ function App() {
           <Route path="/" exact  component={Home}  />
           <PrivateRoute path="/teammake" exact  component={TeamMaker}  />
           <PrivateRoute path="/teamview" exact  component={TeamView}  />
-          <PrivateRoute path="/calendar" component={Calendar} />
+          <PrivateRoute path="/eventview" component={EventView} />
           <PrivateRoute path="/profile"  component={Profile} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
       </Router>
+      <MessageModal/>
     </div>
   );
 }

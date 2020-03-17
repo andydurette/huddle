@@ -1,0 +1,12 @@
+.teamview{
+  table{
+    width: 60%;
+    min-width: 300px;
+    tr{
+      text-align:center;
+      .remove{
+        cursor:pointer
+      }
+    }
+  }
+} 
