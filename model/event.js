@@ -36,6 +36,23 @@ class Event {
 			return error;
 		}
 	}
+
+	async getAllFuture(teamId){
+		let query = `
+		select e.*, v.api_id, v.name as "vanue_name", v.lat, v.lon, v.address, v.phone,
+		et.name as "event_name"
+		from event e
+		join venue v on v.id = e.venue_id
+		join event_types et on et.id = e.event_type_id
+		where e.event_date > NOW() and e.team_id = ${teamId};`;
+		try {
+			let result = await this.pool.query(query);
+			return result;
+		}
+		catch(error) {
+			return error;
+		}
+	}	
     
 	async createNew(teamId, eventTypeId, eventDate, venueId, eventName, competitorId, competitorName){
 		let query = `insert into event(team_id, event_type_id, event_date, venue_id, event_name, competitor_id, competitior_name)

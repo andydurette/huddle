@@ -6,10 +6,12 @@ const saltRounds = 10;
 const User = require("../../model/user");
 const Team = require("../../model/team");
 const Event = require("../../model/event");
+const Venue = require("../../model/venue");
 
 let user = new User();
 let team = new Team();
 let event = new Event();
+let venue = new Venue();
 
 let apiRoutes = express.Router();
 
@@ -207,16 +209,30 @@ apiRoutes.get("/event/detail/:id", checkJwt, async (req, res) => {
 	res.json(data);
 });
 
-apiRoutes.post("/event/new/:id", checkJwt, async (req, res) => {
-	let teamId = req.params.id;
-	let eventType = req.body.eventType;
+apiRoutes.post("/event/new", checkJwt, async (req, res) => {
+	let teamId = req.body.teamId;
+	let eventTypeId = req.body.eventTypeId;
 	let eventDate = req.body.eventDate;
-	let venue = req.body.venue;
+	let venueId = req.body.venueId;
 	let eventName = req.body.eventName;
 	let competitorId = req.body.competitorId;
 	let competitorName = req.body.competitorName;
-	let data = await event.createNew(teamId, eventType, eventDate, venue, eventName, competitorId, competitorName);
+	let data = await event.createNew(teamId, eventTypeId, eventDate, venueId, eventName, competitorId, competitorName);
 	res.json(data);
+});
+
+apiRoutes.post("/futureEvents", checkJwt, async (req, res) => {
+	let teamId = req.body.teamId;
+	let data = await event.getAllFuture(teamId);
+	if (data[0]) {
+		if (data[0].length > 0) {
+			res.json(data[0]);
+		} else {
+			res.json({"error":"No events found"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
 });
 
 apiRoutes.delete("/event/delete/:id", checkJwt, async (req, res) => {
@@ -239,6 +255,22 @@ apiRoutes.put("/event/updateattend/:id", checkJwt, async (req, res) => {
 	let comment = comment.req.body;
 	let data = await event.createAttendanceRecord(eventId, userId, confirmationStatusId, comment);
 	res.json(data);
+});
+
+// venues routes
+
+apiRoutes.get("/venues", checkJwt, async (req, res) => {
+	let data = await venue.getAll();
+	console.log("data: ", data);
+	if (data[0]) {
+		if (data[0].length > 0) {
+			res.json(data[0]);
+		} else {
+			res.json({"error":"No events found"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
 });
 
 //getAnswerTypes, updateEvent
