@@ -45,9 +45,11 @@ class User {
 	}
 
 	async getAllWithoutTeam() {
-		let query = `select * from user u
+		let query = `        
+		select * from user u
 		left outer join team_user tu on tu.user_id = u.id
-		where tu.team_id is null;`;
+        left outer join team_member tm on tm.user_id = u.id
+		where tu.team_id is null and tm.team_id is null;`;
 		try {
 			let result = await this.pool.query(query);
 			return result;

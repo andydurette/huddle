@@ -172,7 +172,13 @@ apiRoutes.post("/team/newmember", checkJwt, async (req, res) => {
 	let userId = req.body.userId;
 	let positionId = req.body.positionId;
 	let data = await team.addMember(teamId, userId, positionId);
-	res.json(data);
+	if (data === 1) {
+		let userData = await team.addTeamUser(teamId, userId, 2);
+		res.json(userData);
+	} else {
+		res.json({"error":"Could not add member"});
+	}
+	//res.json(data);
 });
 //*
 apiRoutes.put("/team/playerposition/:userId/:positionId", checkJwt, async (req, res) => {
@@ -186,7 +192,12 @@ apiRoutes.delete("/team/member", checkJwt, async (req, res) => {
 	let teamId = req.body.teamId;
 	let userId = req.body.userId;
 	let data = await team.removeMember(teamId, userId);
-	res.json(data);
+	if (data === 1){
+		let data2 = await team.removeUser(teamId, userId);
+		res.json(data2);
+	} else {
+		res.json({"error":"Could not delete member"});
+	}
 });
 //*
 apiRoutes.delete("/team/delete/:teamId", checkJwt, async (req, res) => {
