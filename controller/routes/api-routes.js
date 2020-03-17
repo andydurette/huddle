@@ -40,9 +40,9 @@ apiRoutes.get("/external", checkJwt, (req, res) => {
 // });
 
 //user routes
-apiRoutes.get("/user/team/:userid/:teamid", checkJwt, async (req, res) => {
-	let userId = req.params.userid;
-	let teamId = req.params.teamid;
+apiRoutes.get("/user/team", checkJwt, async (req, res) => {
+	let userId = req.body.userid;
+	let teamId = req.body.teamid;
 	let data = await user.getType(userId, teamId);
 	res.json(data);
 });
@@ -175,9 +175,9 @@ apiRoutes.post("/team/newmember", checkJwt, async (req, res) => {
 	res.json(data);
 });
 //*
-apiRoutes.put("/team/playerposition/:userId/:positionId", checkJwt, async (req, res) => {
-	let userId = req.params.userId;
-	let positionId = req.params.positionId;
+apiRoutes.put("/team/playerposition", checkJwt, async (req, res) => {
+	let userId = req.body.userId;
+	let positionId = req.body.positionId;
 	let data = await team.updatePlayerPosition(userId, positionId);
 	res.json(data);
 });
@@ -189,22 +189,22 @@ apiRoutes.delete("/team/member", checkJwt, async (req, res) => {
 	res.json(data);
 });
 //*
-apiRoutes.delete("/team/delete/:teamId", checkJwt, async (req, res) => {
-	let teamId = req.params.teamid;
+apiRoutes.delete("/team/delete", checkJwt, async (req, res) => {
+	let teamId = req.body.teamid;
 	let data = await team.deleteTeam(teamId);
 	res.json(data);
 });
 
 
 //event routes
-apiRoutes.get("/event/date/:id", checkJwt, async (req, res) => {
-	let eventId = req.params.id;
+apiRoutes.get("/event/date", checkJwt, async (req, res) => {
+	let eventId = req.body.id;
 	let data = await event.getDate(eventId);
 	res.json(data);
 });
 
-apiRoutes.get("/event/detail/:id", checkJwt, async (req, res) => {
-	let eventId = req.params.id;
+apiRoutes.get("/event/detail", checkJwt, async (req, res) => {
+	let eventId = req.body.id;
 	let data = await event.getDetails(eventId);
 	res.json(data);
 });
@@ -235,21 +235,21 @@ apiRoutes.post("/futureEvents", checkJwt, async (req, res) => {
 	}
 });
 
-apiRoutes.delete("/event/delete/:id", checkJwt, async (req, res) => {
-	let eventId = req.params.id;
+apiRoutes.delete("/event/delete", checkJwt, async (req, res) => {
+	let eventId = req.body.id;
 	let data = await event.delete(eventId);
 	res.json(data);
 });
 
-apiRoutes.post("/event/newattend/:id", checkJwt, async (req, res) => {
-	let eventId = req.params.id;
+apiRoutes.post("/event/newattend", checkJwt, async (req, res) => {
+	let eventId = req.body.id;
 	let userId = req.body.userId;
 	let data = await event.createAttendanceRecord(eventId, userId);
 	res.json(data);
 });
 
-apiRoutes.put("/event/updateattend/:id", checkJwt, async (req, res) => {
-	let eventId = req.params.id;
+apiRoutes.put("/event/updateattend", checkJwt, async (req, res) => {
+	let eventId = req.body.id;
 	let userId = req.body.userId;
 	let confirmationStatusId = req.body.confirmationStatusId;
 	let comment = comment.req.body;
