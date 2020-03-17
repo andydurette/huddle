@@ -273,6 +273,50 @@ apiRoutes.get("/venues", checkJwt, async (req, res) => {
 	}
 });
 
+
+apiRoutes.post("/venue/new", checkJwt, async (req, res) => {
+	let apiId = req.body.apiId;
+	let name = req.body.name;
+	let lat = req.body.lat;
+	let lon = req.body.lon;
+	let address = req.body.address;
+	let phone = req.body.phone;
+	let data = await venue.addNew(apiId, name, lat, lon, address, phone);
+	res.json(data);
+});
+
+apiRoutes.get("/venue/details", checkJwt, async (req, res) => {
+	let venueId = req.body.venueId;
+	let data = await venue.getDetails(venueId);
+	res.json(data);
+});
+
+apiRoutes.post("/venue/update", checkJwt, async (req, res) => {
+	let venueId = req.body.venueId;
+	let apiId = req.body.apiId;
+	let name = req.body.name;
+	let lat = req.body.lat;
+	let lon = req.body.lon;
+	let address = req.body.address;
+	let phone = req.body.phone;
+	let data = await venue.update(venueId, apiId, name, lat, lon, address, phone);
+	res.json(data);
+});
+
+apiRoutes.get("/venue/address", checkJwt, async (req, res) => {
+	let venueId = req.body.venueId;
+	let data = await venue.getAddress(venueId);
+	res.json(data);
+});
+
+apiRoutes.delete("/venue/delete/:id", checkJwt, async (req, res) => {
+	let venueId = req.params.id;
+	let data = await venue.delete(venueId);
+	res.json(data);
+});
+
+
+
 //getAnswerTypes, updateEvent
 
 
