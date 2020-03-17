@@ -8,13 +8,13 @@ import { useAuth0 } from "./react-auth0-spa";
 
 // New - import the React Router components, and the Profile page component
 import { Router, Route, Switch } from "react-router-dom";
-import Calendar from "./components/Calendar";
 import Profile from "./components/Profile";
 import ExternalApi from "./views/ExternalApi";
 import history from "./utils/history";
 import TeamMaker from "./components/TeamMaker";
 import TeamView from "./components/TeamView";
 import EventView from "./components/EventView";
+import MessageModal from './components/MessageModal';
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
@@ -76,6 +76,7 @@ function App() {
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
       </Router>
+      <MessageModal/>
     </div>
   );
 }

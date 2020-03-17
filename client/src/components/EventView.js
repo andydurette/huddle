@@ -16,7 +16,10 @@ function EventView() {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
         });
         return res.json();
-    }
+    },async addEvent(e) {
+      e.preventDefault();
+
+    },
   };
 
   
@@ -24,13 +27,14 @@ function EventView() {
 
   useEffect(() => {
         // Call all users not associated with a team
+        // eslint-disable-next-line
         API.callVenues().then((res) => {setVenues(venues = res)});
   },[]);
 
 
 
 
-  if (id[0] === '') {
+  if (id[0] === '' || venues === '') {
     return <div>Loading...</div>;
   }
 
@@ -66,23 +70,19 @@ function EventView() {
 
 
     <h2>Add event for your team</h2>   
-    {/*   
-      <form onSubmit={(e) => API.addUser(e).then(() => API.teamCall((res) => { setTeam(team = res)}))}>
-        <label htmlFor="user_name">User name:&nbsp;</label>
-        <select name="user_name" id="user_name">
-          {freePlayers.map((user, index) => (
-            <option key={index} value={user.id} >{user.first_name}</option>
+    {   
+      <form onSubmit={(e) => API.addEvent(e)}>
+        <label htmlFor="venue">Venue:&nbsp;</label>
+        <select name="venue" id="venue">
+          {venues.map((venue, index) => (
+            <option key={index} value={venue.id} >{venue.name}</option> 
           ))}
         </select><br/>
-        <label htmlFor="position">User Position:&nbsp;</label>
-        <select name="position" id="position">
-          {teamPositions.map((position, index) => (
-            <option key={index} value={position.player_pos_id} >{position.player_pos_name}</option> 
-          ))}
-        </select><br/>
+        <label htmlFor="start">Start date:</label><br/>
+        <input type="date" id="start" name="event-start"></input><br/>
         <input type="submit" value="Submit" />
       </form> 
-              */}
+              }
           </div>
           <Footer/>
       </section>

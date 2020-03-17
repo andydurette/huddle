@@ -22,8 +22,12 @@ const useStyles = makeStyles(theme => ({
 
 function TeamMaker() {
 
-  const {id, getTokenSilently} = useAuth0();
+  const {id, getTokenSilently,modal, modalCopy} = useAuth0();
   let [dbId /*, setDbId*/] =  id;
+  // eslint-disable-next-line
+  let [modalState, setModalState] =  modal;
+  // eslint-disable-next-line
+  let [modalCopyState , setModalCopyState ] =  modalCopy;
 
   const classes = useStyles();
   const [sport, setSport] = React.useState('');
@@ -91,10 +95,25 @@ function TeamMaker() {
         teamCheck().then((res) =>{
           if(res.hasTeams === true){
             console.log("You already have a team!!!")
+
+              setModalState( modalState = "");
+              setModalCopyState( modalCopyState = "You already have a team.");
+              setTimeout(() =>{ setModalState( modalState = "not-set") }, 500);
+              setTimeout(() =>{ setModalState( modalState = "") }, 3000);
+              setTimeout(() =>{ setModalState( modalState = "hide") }, 3500);
+
           }else if(res.hasTeams === false){
             // Response from api call finally stores api call response as the database Id
             // eslint-disable-next-line
-            idCall().then((res) => console.log(''));
+            idCall().then((res) => {
+
+              setModalState( modalState = "");
+              setModalCopyState( modalCopyState = `Congratulations you have made team ${res.TeamName}`);
+              setTimeout(() =>{ setModalState( modalState = "set") }, 500);
+              setTimeout(() =>{ setModalState( modalState = "") }, 3000);
+              setTimeout(() =>{ setModalState( modalState = "hide") }, 3500);
+
+            });
           }
       }); 
     };

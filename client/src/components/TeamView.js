@@ -5,7 +5,7 @@ import Footer from "./Footer";
 function TeamView() {
 
   const {id, getTokenSilently} = useAuth0();
-  let [teamId, setTeamId] = useState('');
+  //let [teamId, setTeamId] = useState('');
   let [team, setTeam] = useState('');
   let [teamPositions, setTeamPositions] = useState(''); 
   let [freePlayers, setFreePlayers] = useState(''); 
