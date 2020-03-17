@@ -111,6 +111,17 @@ class Team {
 		}
 	}
 
+	async removeUser(teamId, userId){
+		let query = `delete from team_user where team_id = ${teamId} and user_id = ${userId};`;
+		try {
+			await this.pool.query(query);
+			return 1;
+		}
+		catch(error) {
+			return error;
+		}
+	}
+
 	async addTeamUser(teamId, userId, userTypeId){
 		let query = `insert into team_user (team_id, user_id, user_type_id) values
 		(${teamId}, ${userId}, ${userTypeId});`;
