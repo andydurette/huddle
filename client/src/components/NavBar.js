@@ -51,10 +51,10 @@ const NavBar = () => {
                 </NavLink>
                 <NavLink
                   tag={RouterNavLink}
-                  to="/Calendar"
+                  to="/eventview"
                   activeClassName="router-link-exact-active"
                 >
-                  Calendar
+                  Event View
                 </NavLink>
                 <NavLink
                   tag={RouterNavLink}
