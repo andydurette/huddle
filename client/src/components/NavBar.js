@@ -65,7 +65,7 @@ const NavBar = () => {
                 </NavLink>
                 <NavLink
                   tag={RouterNavLink}
-                  to="/teammake"
+                  to="/teammaker"
                   activeClassName="router-link-exact-active"
                 >
                   Team Maker

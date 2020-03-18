@@ -10,6 +10,10 @@
   display:block;
   opacity: 0;
   transition: all 0.5s;
+  #ModalMessage{
+    margin: 0 auto;
+    padding:16px;
+  }
 }
 
 #MessageModal.set{

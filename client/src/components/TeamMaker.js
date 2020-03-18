@@ -1,24 +1,7 @@
 import React, { useState } from 'react';
 import Footer from "./Footer";
-import { makeStyles } from '@material-ui/core/styles';
-//import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-//import MainAddUser from './MainAddUser';
 import { useAuth0 } from "../react-auth0-spa";
 
-
-const useStyles = makeStyles(theme => ({
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-}));
 
 function TeamMaker() {
 
@@ -28,22 +11,6 @@ function TeamMaker() {
   let [modalState, setModalState] =  modal;
   // eslint-disable-next-line
   let [modalCopyState , setModalCopyState ] =  modalCopy;
-
-  const classes = useStyles();
-  const [sport, setSport] = React.useState('');
-  const [open, setOpen] = React.useState(false);
-
-  const handleChange = event => {
-    setSport(event.target.value);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
 
     let [name, setName] = useState('');
@@ -123,48 +90,34 @@ function TeamMaker() {
           <div id="wrapper-contents" >  
             <h1>Team registration</h1>
                 
-                {/* <input type="text" id="sport" name="sport" onChange={(e) => hand(e)} value={sport} /><br/> */}
-                
-                <FormControl className={classes.formControl}>
                 <form onSubmit={(e) => teamMake(e)}>
-                <label htmlFor="name">Team name:</label><br/>
-                <input type="text" id="name" name="name" onChange={(e) => handleNameChange(e)} value={name} /><br/>
-                <label htmlFor="description">description:</label><br/>
-                <input type="text" id="description" name="description" onChange={(e) => handleDesChange(e)} value={description} /><br/>
-      
-        <label>Sports</label>
-       <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          name="sport"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={sport}
-          onChange={handleChange}
-        >
-         
-          
-          <MenuItem value={1}> <em>Basketball</em></MenuItem>
-          <MenuItem value={2}>Baseball</MenuItem>
-          <MenuItem value={3}>Hockey</MenuItem>
-          <MenuItem value={4}>Soccer</MenuItem>
-        </Select>
-        <br/><br/>
-        <input type="submit" value="Submit"></input>
-        </form>
-      </FormControl>
-
+                <ul className="flex-outer">
+                  <li> 
+                    <label htmlFor="name">Team name:&nbsp;</label>
+                    <input type="text" id="name" name="name" onChange={(e) => handleNameChange(e)} value={name} />
+                  </li>
+                  <li>
+                    <label htmlFor="description">Description:&nbsp;</label>
+                    <input type="text" id="description" name="description" onChange={(e) => handleDesChange(e)} value={description} /><br/>
+                  </li>
+                  <li>
+                    <label htmlFor="sport">Sport:&nbsp;</label>
+                    <select name="sport" id="sport" required>
+                        <option value='1'>Basketball</option> 
+                        <option value='2'>Baseball</option> 
+                        <option value='2'>Hockey</option> 
+                        <option value='2'>Soccer</option> 
+                    </select>
+                  </li>
+                  <li>
+                    <input type="submit" value="Submit"></input>
+                  </li>
+                </ul>
+                </form>
             <div>
        
       
-    </div>
-    <div>
-      
-    {/* <MainAddUser/> */}
-    </div>
-    
-    
+    </div>    
           </div>
           <Footer/>
       </section>

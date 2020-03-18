@@ -69,7 +69,7 @@ function App() {
         </header>
         <Switch>
           <Route path="/" exact  component={Home}  />
-          <PrivateRoute path="/teammake" exact  component={TeamMaker}  />
+          <PrivateRoute path="/teammaker" exact  component={TeamMaker}  />
           <PrivateRoute path="/teamview" exact  component={TeamView}  />
           <PrivateRoute path="/eventview" component={EventView} />
           <PrivateRoute path="/profile"  component={Profile} />
