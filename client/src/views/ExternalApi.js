@@ -12,7 +12,7 @@ const ExternalApi = () => {
   const callApi = async () => {
     try {
       const token = await getTokenSilently();
-
+      console.log(token);
       const response = await fetch("/api/external", {
         headers: {
           Authorization: `Bearer ${token}`

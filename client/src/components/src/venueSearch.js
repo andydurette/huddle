@@ -40,14 +40,13 @@ function renderResults(data){
 
     for(const venue of data){ 
         console.log('getting venue details');
-        let item = $('<li>').attr({'class': 'list-group-item d-flex justify-content-start align-items-top restaurantContainer', style: "width:750px;"});
+        let item = $('<li>').attr({'class': 'list-group-item d-flex justify-content-start align-items-top venueContainer', style: "width:750px;"});
         let restocard = $('<div>').attr({'class': 'd-flex justify-content-left flex-column', style: "padding:1rem;"});
-        let resto = $('<h5>').attr('class', 'restName').text(venue.name);
+        let resto = $('<h5>').attr('class', 'venueName').text(venue.name);
         
         let img = $("<div>").attr("style","width:150px").append($('<img>').attr({'src': venue.image_url, style: "max-width:150px;height:150px;"}));
         
-        let toDisable = venue.inBucketlist;        
-        let button = $('<button>').attr({'class': 'addToList btn btn-primary ml-auto', 
+        let button = $('<button>').attr({'class': 'addToDatabase btn btn-primary ml-auto', 
                         'data-restaurant': encodeJsonForHTML(venue), 
                         'data-yelpid':venue.id,
                         'disabled': toDisable,

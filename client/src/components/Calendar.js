@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda } from "@syncfusion/ej2-react-schedule";
+import Footer from "./Footer";
 
 import { useAuth0 } from "../react-auth0-spa";
 
@@ -31,22 +32,20 @@ function Calendar() {
         }
       });
     
-    return (
-    <React.Fragment>    
-        {id[0] === '' ?  
-       'Loading...'
-        : (     
+    return (   
         <section id="wrapper" className="Calendar">
             <div id="wrapper-contents" >
-                <ScheduleComponent>
-                    <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
-                </ScheduleComponent>
+                {userInfo === '' ?  
+                    'Loading...'
+                    : (     
+                    <ScheduleComponent currentView="Month">
+                        <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
+                    </ScheduleComponent>
+                     )}
             </div>
+            <Footer/>
         </section>
-            )}
-    </React.Fragment> 
-    )
-    
+    ) 
 }
 
 export default Calendar;

@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 // End of Added Auth0 JWT authentication libraries
 const path = require("path");
-const PORT = process.env.PORT || 3036;
+const PORT = process.env.PORT || 3001;
 const app = express();
 const apiRoutes = require("./controller/routes/api-routes");
 const isAuthenticated = require("./controller/isAuthenticated");

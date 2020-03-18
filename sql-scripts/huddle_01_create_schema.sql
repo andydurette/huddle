@@ -1,6 +1,8 @@
 /*drop database if exists huddle_db;
 
-create database huddle_db;*/
+create database huddle_db;
+
+use huddle_db*/
 
 use uwuc9h6qbkrchuc9;
 
@@ -79,7 +81,7 @@ create table event_types (
 
 create table venue (
   id int auto_increment not null,
-  api_id int,
+  api_id varchar(100),
   name varchar(255),
   lat float8,
   lon float8,

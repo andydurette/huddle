@@ -51,17 +51,24 @@ const NavBar = () => {
                 </NavLink>
                 <NavLink
                   tag={RouterNavLink}
-                  to="/main"
+                  to="/eventview"
                   activeClassName="router-link-exact-active"
                 >
-                  Main
+                  Event View
                 </NavLink>
                 <NavLink
                   tag={RouterNavLink}
-                  to="/external-api"
+                  to="/teamview"
                   activeClassName="router-link-exact-active"
                 >
-                  External API
+                  Team View
+                </NavLink>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/teammake"
+                  activeClassName="router-link-exact-active"
+                >
+                  Team Maker
                 </NavLink>
               </NavItem>
             </Nav>

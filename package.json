@@ -25,10 +25,6 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.5",
-    "@material/drawer": "^5.1.0",
-    "@material/list": "^5.1.0",
-    "@syncfusion/ej2-react-schedule": "^17.4.51",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -39,23 +35,9 @@
     "google-maps-react": "^2.0.2",
     "if-env": "^1.0.4",
     "jwks-rsa": "^1.7.0",
-    "material-table": "^1.57.2",
     "mysql2": "^2.1.0",
-    "node-sass": "^4.13.1",
     "npm-run-all": "^4.1.5",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "react-router-dom": "^5.1.2"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andydurette/huddle.git"
-  },
-  "bugs": {
-    "url": "https://github.com/andydurette/huddle/issues"
-  },
-  "homepage": "https://github.com/andydurette/huddle#readme"
+    "passport-local": "^1.0.0"
+  }
 }
