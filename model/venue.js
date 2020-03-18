@@ -32,7 +32,7 @@ class Venue {
 		let query = "select * from venue;";
 		try {
 			let result = await this.pool.query(query);
-			console.log("venue query result: ", result);
+			//console.log("venue query result: ", result);
 			return result;
 		}
 		catch(error) {

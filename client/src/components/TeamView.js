@@ -5,7 +5,7 @@ import Footer from "./Footer";
 function TeamView() {
 
   const {id, getTokenSilently} = useAuth0();
-  //let [teamId, setTeamId] = useState('');
+  let [teamId, setTeamId] = useState('');
   let [team, setTeam] = useState('');
   let [teamPositions, setTeamPositions] = useState(''); 
   let [freePlayers, setFreePlayers] = useState(''); 
@@ -52,10 +52,8 @@ function TeamView() {
     },
     async addUser(e) {
       e.preventDefault();
-
-      let teamId = team.team_id;
-      let userId = e.target.user_name.value;
-      let positionId = e.target.position.value;
+      let userId = Number(e.target.user_name.value);
+      let positionId = Number(e.target.position.value);
 
       console.log(teamId, userId, positionId);
 
@@ -69,10 +67,9 @@ function TeamView() {
         //console.log(res.json());
         return res.json()
     },
-    async removeUser(userIdValue, teamIdValue) {
+    async removeUser(userIdValue) {
 
       let userId = userIdValue;
-      let teamId = teamIdValue;
 
       console.log(userId);
       console.log(teamId);
@@ -87,37 +84,52 @@ function TeamView() {
     }
   };
 
+  let processUsers = () =>{
+
+            // Call all users not associated with a team
+            API.freeUsers().then((res) => {
+              if(res.error){
+                setFreePlayers(freePlayers = 'No free players');
+              }else{
+                setFreePlayers(freePlayers = res);
+              }
+            });
+
+  }
+
+
+
+let userDataPopulation = () => {
+   // Checks for user id and that team hasn't been checked yet.
+   if ( id[0] !== '' && team === ''){
+    // Grabs users team if they have one. 
+    API.teamCheck().then((res) => {
+      if (res.hasTeams === false){
+        team = `false`;
+      }else if(res.hasTeams === true){
+        //If a team was found set to the team useRef hook for consumption also send it to teamPositions api to grab the positions
+         API.teamCall().then((res) => { 
+           setTeam(team = res);
+           setTeamId(teamId = res[0].team_id)
+           // Call and set positions
+            API.teamPositions(res).then((res) =>{
+              setTeamPositions(teamPositions = res);
+            })
+          });
+      }
+    })
+  }
+}
+
 
   useEffect(() => {
-        // Call all users not associated with a team
-          API.freeUsers().then((res) => {
-            // eslint-disable-next-line
-            setFreePlayers(freePlayers = res);
-          });
+    processUsers();
+    // eslint-disable-next-line
   },[]);
 
 
   useEffect(() => {
-    // Checks for user id and that team hasn't been checked yet.
-    if ( id[0] !== '' && team === ''){
-      // Grabs users team if they have one. 
-      API.teamCheck().then((res) => {
-        if (res.hasTeams === false){
-          // eslint-disable-next-line
-          team = `false`;
-        }else if(res.hasTeams === true){
-          //If a team was found set to the team useRef hook for consumption also send it to teamPositions api to grab the posions
-           API.teamCall().then((res) => { 
-             setTeam(team = res);
-             // Call and set positions
-              API.teamPositions(res).then((res) =>{
-                // eslint-disable-next-line
-                setTeamPositions(teamPositions = res);
-              })
-            });
-        }
-      })
-    }
+    userDataPopulation();
   });
 
 
@@ -135,6 +147,7 @@ function TeamView() {
       
     {/* Grabs all team data and loops through it to send to the front end  */}
     <h2>Players on your team</h2> 
+    {(team[0].user_id === null ) ? <p>There are no players currently on your team</p> : (
     <table >
       <tbody>
         <React.Fragment>
@@ -144,28 +157,50 @@ function TeamView() {
             <th>Remove</th>
           </tr>
           
-          {team.map((teamMember, index) => (
+         
+          {team.map((teamMember) => (
           <tr key={teamMember.user_id} className="team-player">
             <td>{teamMember.member}</td>
             <td>{teamMember.player_pos_name}</td>
             <td><button data-user={teamMember.user_id} data-team={teamMember.user_team} onClick={(e) => {
               let userId = e.target.getAttribute("data-user");
-              let teamId = e.target.getAttribute("data-team");
-              API.removeUser(userId, teamId).then(() => API.teamCall((res) => { setTeam(team = res)}));
+              API.removeUser(userId)
+              .then(() => API.teamCall()
+              .then((res) => { setTeam(team = res)}).then(API.freeUsers().then((res) => {
+                // eslint-disable-next-line
+                if(res.error){
+                  setFreePlayers(freePlayers = 'No free players');
+                }else{
+                  setFreePlayers(freePlayers = res);
+                }
+              })))
               }}>X</button></td>
           </tr>
-          ))} 
-          
+          )) }
+         
         </React.Fragment>
         </tbody>
     </table>
+     )}
 
 
   {/* Add Team  Members */}
-
-
-    <h2>Add user to your team</h2>      
-      <form onSubmit={(e) => API.addUser(e).then(() => API.teamCall((res) => { setTeam(team = res)}))}>
+  <h2>Add user to your team</h2> 
+      
+    {(freePlayers === 'No free players' ) ? <p>No free users to add to team.</p> : (
+      <form onSubmit={(e) => 
+      API.addUser(e)
+      .then(() => API.teamCall()
+      .then((res) => { setTeam(team = res)})
+      .then(API.freeUsers().then((res) => {
+        // eslint-disable-next-line
+        if(res.error){
+          setFreePlayers(freePlayers = 'No free players');
+        }else{
+          setFreePlayers(freePlayers = res);
+        }
+      }))
+      )}>
         <label htmlFor="user_name">User name:&nbsp;</label>
         <select name="user_name" id="user_name">
           {freePlayers.map((user, index) => (
@@ -180,7 +215,7 @@ function TeamView() {
         </select><br/>
         <input type="submit" value="Submit" />
       </form> 
-              
+    )}
           </div>
           <Footer/>
       </section>
