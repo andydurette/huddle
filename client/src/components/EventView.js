@@ -1,4 +1,5 @@
 import React,{useEffect, useState, useRef} from 'react';
+import { Link } from "react-router-dom";
 import { useAuth0 } from "../react-auth0-spa";
 import Footer from "./Footer";
 
@@ -8,6 +9,9 @@ function EventView() {
   let [venues, setVenues] = useState('');
   let [time, setTime] = useState('09:00');
   let [teamId, setTeamId] = useState('');
+  let [team, setTeam] = useState('');
+  let [etype, setEtype] = useState("1");
+  
   let [competitor, setCompetitor] = useState('');
   const contentMounted = useRef(false)
 
@@ -57,7 +61,16 @@ function EventView() {
         });
 
         return res.json();
-    }
+    },async eventsCheck() {
+      const token = await getTokenSilently();
+      const res = await fetch("/api/futureEvents", {
+        method: "POST",
+        body: JSON.stringify({teamId}),
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
+        });
+
+        return res.json();
+    },
   };
 
   let contentUpdate = () =>{
@@ -65,16 +78,19 @@ function EventView() {
        // Call all users not associated with a team
         API.teamCheck().then((res) => {
           if (res.hasTeams === false){
-            console.log(res.hasTeams);
+            setTeam(team = `false`);
           }else if(res.hasTeams === true){
 
             //If a team was found set to the team useRef hook for consumption also send it to teamPositions api to grab the posions
        
             API.teamCall().then((res) => { 
-              
               setTeamId(teamId = res[0].team_id);
               contentMounted.current = true
-            })
+            }).then(
+              API.eventsCheck().then((res) => {
+                console.log(res);
+              })
+            )
           }}) 
   }
 
@@ -86,18 +102,37 @@ function EventView() {
 
 
   useEffect(() => {
-    if (id !== '' && contentMounted === false ){
+    if (id !== '' && contentMounted.current === false ){
       contentUpdate();
     }
   });
 
 
   if (id[0] === '' || venues === '') {
-    return <div>Loading...</div>;
-  }
+    return (
+      <section id="wrapper" className="eventview"> 
+        <div id="wrapper-contents" >  
+          <div>Loading...</div>
+        </div>
+        <Footer/>
+      </section>
+    )
+  }else if( team === 'false' || ''){
+    return (
+      <section id="wrapper" className="teamview"> 
+        <div id="wrapper-contents" >  
+          <div>
+            <p>You currently belong to no team, wait to added by someone or make your own team by going to the link provided to the team maker page.</p>
+            <Link to={{pathname: "/teammaker"}}>Team Maker</Link>
+          </div>
+        </div>
+        <Footer/>
+      </section>
+    )
+  }else{
 
   return (
-      <section id="wrapper" className="teamview"> 
+      <section id="wrapper" className="eventview"> 
           <div id="wrapper-contents" >  
 
       
@@ -130,32 +165,52 @@ function EventView() {
     <h2>Add event for your team</h2>   
     {   
       <form onSubmit={(e) => API.addEvent(e).then((res) => console.log(res))}>
-        <label htmlFor="ename">Event Name:&nbsp;</label>
-        <input id="start" name="ename"  required></input><br/>
-        <label htmlFor="etype">Event Type:&nbsp;</label>
-        <select name="etype" id="etype" required>
-            <option value='1'>Game</option> 
-            <option value='2'>Practice</option> 
-        </select><br/>
-        <label htmlFor="competitor">Competitor:&nbsp;</label>
-        <input id="competitor" name="competitor" value={competitor} onChange={e => {setCompetitor(competitor = e.target.value)}} required></input><br/>
-        <label htmlFor="venue">Venue:&nbsp;</label>
-        <select name="venue" id="venue">
-          {venues.map((venue, index) => (
-            <option key={index} value={venue.id} >{venue.name}</option> 
-          ))}
-        </select><br/>
-        <label htmlFor="edate">Date:&nbsp;</label>
-        <input type="date" id="date" name="date"  required></input><br/>
-        <label htmlFor="time">Game Time:&nbsp;</label>
-        <input type="time" id="time" name="time" min="09:00" max="18:00" value={time} onChange={e => {setTime(time = e.target.value)}} required></input><br/>
-        <input type="submit" value="Submit" />
+        <ul className="flex-outer">
+          <li>
+            <label htmlFor="ename">Event Name:&nbsp;</label>
+            <input id="start" name="ename"  required></input>
+          </li>
+          <li>
+            <label htmlFor="etype">Event Type:&nbsp;</label>
+            <select name="etype" id="etype" value={etype} onChange={e => {setEtype(etype = e.target.value)}} required>
+                <option value='1'>Game</option> 
+                <option value='2'>Practice</option> 
+            </select>
+          </li>
+          {etype === "2" ? '' : (
+          
+          <li>
+            <label htmlFor="competitor">Competitor:&nbsp;</label>
+            <input id="competitor" name="competitor" value={competitor} onChange={e => {setCompetitor(competitor = e.target.value)}} required></input>
+          </li>
+          )}
+          <li>
+            <label htmlFor="venue">Venue:&nbsp;</label>
+            <select name="venue" id="venue">
+              {venues.map((venue, index) => (
+                <option key={index} value={venue.id} >{venue.name}</option> 
+              ))}
+            </select>
+          </li>
+          <li>
+            <label htmlFor="edate">Date:&nbsp;</label>
+            <input type="date" id="date" name="date"  required></input>
+          </li>
+          <li>
+            <label htmlFor="time">Game Time:&nbsp;</label>
+            <input type="time" id="time" name="time" min="09:00" max="18:00" value={time} onChange={e => {setTime(time = e.target.value)}} required></input>
+          </li>
+          <li>
+            <input type="submit" value="Submit" />
+          </li>
+        </ul>
       </form> 
               }
           </div>
           <Footer/>
       </section>
     )
+            }
 }
 
 export default EventView;
