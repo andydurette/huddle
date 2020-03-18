@@ -272,7 +272,7 @@ apiRoutes.put("/event/updateattend/:id", checkJwt, async (req, res) => {
 
 apiRoutes.get("/venues", checkJwt, async (req, res) => {
 	let data = await venue.getAll();
-	console.log("data: ", data);
+//	console.log("data: ", data);
 	if (data[0]) {
 		if (data[0].length > 0) {
 			res.json(data[0]);

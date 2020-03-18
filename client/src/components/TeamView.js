@@ -84,47 +84,52 @@ function TeamView() {
     }
   };
 
+  let processUsers = () =>{
+
+            // Call all users not associated with a team
+            API.freeUsers().then((res) => {
+              if(res.error){
+                setFreePlayers(freePlayers = 'No free players');
+              }else{
+                setFreePlayers(freePlayers = res);
+              }
+            });
+
+  }
+
+
+
+let userDataPopulation = () => {
+   // Checks for user id and that team hasn't been checked yet.
+   if ( id[0] !== '' && team === ''){
+    // Grabs users team if they have one. 
+    API.teamCheck().then((res) => {
+      if (res.hasTeams === false){
+        team = `false`;
+      }else if(res.hasTeams === true){
+        //If a team was found set to the team useRef hook for consumption also send it to teamPositions api to grab the positions
+         API.teamCall().then((res) => { 
+           setTeam(team = res);
+           setTeamId(teamId = res[0].team_id)
+           // Call and set positions
+            API.teamPositions(res).then((res) =>{
+              setTeamPositions(teamPositions = res);
+            })
+          });
+      }
+    })
+  }
+}
+
 
   useEffect(() => {
-        // Call all users not associated with a team
-          API.freeUsers().then((res) => {
-            // eslint-disable-next-line
-            if(res.error){
-              // eslint-disable-next-line
-              setFreePlayers(freePlayers = 'No free players');
-            }else{
-              // eslint-disable-next-line
-              setFreePlayers(freePlayers = res);
-            }
-          });
+    processUsers();
+    // eslint-disable-next-line
   },[]);
 
 
   useEffect(() => {
-    // Checks for user id and that team hasn't been checked yet.
-    if ( id[0] !== '' && team === ''){
-      // Grabs users team if they have one. 
-      API.teamCheck().then((res) => {
-        if (res.hasTeams === false){
-          // eslint-disable-next-line
-          team = `false`;
-        }else if(res.hasTeams === true){
-          //If a team was found set to the team useRef hook for consumption also send it to teamPositions api to grab the posions
-          // eslint-disable-next-line
-           API.teamCall().then((res) => { 
-             // eslint-disable-next-line
-             setTeam(team = res);
-             // eslint-disable-next-line
-             setTeamId(teamId = res[0].team_id)
-             // Call and set positions
-              API.teamPositions(res).then((res) =>{
-                // eslint-disable-next-line
-                setTeamPositions(teamPositions = res);
-              })
-            });
-        }
-      })
-    }
+    userDataPopulation();
   });
 
 
