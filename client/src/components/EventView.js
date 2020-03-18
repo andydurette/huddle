@@ -72,14 +72,18 @@ function EventView() {
     <h2>Add event for your team</h2>   
     {   
       <form onSubmit={(e) => API.addEvent(e)}>
+        <label htmlFor="ename">Event Name:&nbsp;</label>
+        <input id="start" name="ename"></input><br/>
         <label htmlFor="venue">Venue:&nbsp;</label>
         <select name="venue" id="venue">
           {venues.map((venue, index) => (
             <option key={index} value={venue.id} >{venue.name}</option> 
           ))}
         </select><br/>
-        <label htmlFor="start">Start date:</label><br/>
+        <label htmlFor="start">Start date:&nbsp;</label>
         <input type="date" id="start" name="event-start"></input><br/>
+        <label htmlFor="appt">Game Time:&nbsp;</label>
+        <input type="time" id="appt" name="appt" min="09:00" max="18:00" required></input><br/>
         <input type="submit" value="Submit" />
       </form> 
               }
