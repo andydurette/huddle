@@ -49,7 +49,6 @@ function renderResults(data){
         let button = $('<button>').attr({'class': 'addToDatabase btn btn-primary ml-auto', 
                         'data-restaurant': encodeJsonForHTML(venue), 
                         'data-yelpid':venue.id,
-                        'disabled': toDisable,
                     });
         let i = $('<i>').attr('class', 'fas fa-plus');
         button.append(i);
