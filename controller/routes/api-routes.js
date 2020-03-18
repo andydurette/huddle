@@ -6,10 +6,12 @@ const saltRounds = 10;
 const User = require("../../model/user");
 const Team = require("../../model/team");
 const Event = require("../../model/event");
+const Venue = require("../../model/venue");
 
 let user = new User();
 let team = new Team();
 let event = new Event();
+let venue = new Venue();
 
 let apiRoutes = express.Router();
 
@@ -50,10 +52,12 @@ apiRoutes.get("/user/team/:userid/:teamid", checkJwt, async (req, res) => {
 //      else if the email exists, it sends back the user ID
 apiRoutes.post("/user/email", checkJwt, async (req, res) => {
 	let email = req.body.userEmail;
+	let name = req.body.userName;
 	let data = await user.getInfoByEmail(email);
 	if (data[0].length < 1){
-		let newData = await user.createNewEmail(email);
+		let newData = await user.createNew(name, email);
 		console.log("New user created - ID: ",newData[0].insertId);
+		console.log("newData: ", newData[0].insertId);
 		res.json(newData[0].insertId);
 	}else{
 		console.log("The user ID: ",data[0][0].id);
@@ -107,12 +111,74 @@ apiRoutes.post("/team/new", checkJwt, async (req, res) => {
 	
 });
 
+apiRoutes.post("/teamCheck", checkJwt, async (req, res) => {
+	let userId = req.body.userId;
+	let data = await team.getTeamByUser(userId);
+	//console.log("has teams: ", data[0]);
+	if (data[0]) {
+		if (data[0].length > 0) {
+			res.json({"hasTeams": true});
+		} else {
+			res.send({"hasTeams": false});
+		}
+	} else {
+		res.send({"hasTeams": false});
+	}
+});
+
+apiRoutes.post("/teamInfo", checkJwt, async (req, res) => {
+	let userId = req.body.userId;
+	let teamResult = await team.getTeam(userId);
+	if (teamResult[0]) {
+		if (teamResult[0].length > 0) {
+			res.json(teamResult[0]);
+		} else {
+			res.json({"error":"This team does not exist"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
+});
+
+apiRoutes.post("/allPositions", checkJwt, async (req, res) => {
+	let sportId = req.body.sportId;
+	let posResult = await team.getPlayerPositions(sportId);
+	if (posResult[0]) {
+		if (posResult[0].length > 0) {
+			res.json(posResult[0]);
+		} else {
+			res.json({"error":"This sport does not exist"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
+});
+
+apiRoutes.get("/freeUsers", checkJwt, async (req, res) => {
+	let userResult = await user.getAllWithoutTeam();
+	if (userResult[0]) {
+		if (userResult[0].length > 0) {
+			res.json(userResult[0]);
+		} else {
+			res.json({"error":"No free users left :("});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
+});
+
 apiRoutes.post("/team/newmember", checkJwt, async (req, res) => {
-	let teamId = req.body.team;
-	let userId = req.body.user;
-	let positionId = req.body.position;
+	let teamId = req.body.teamId;
+	let userId = req.body.userId;
+	let positionId = req.body.positionId;
 	let data = await team.addMember(teamId, userId, positionId);
-	res.json(data);
+	if (data === 1) {
+		let userData = await team.addTeamUser(teamId, userId, 2);
+		res.json(userData);
+	} else {
+		res.json({"error":"Could not add member"});
+	}
+	//res.json(data);
 });
 //*
 apiRoutes.put("/team/playerposition/:userId/:positionId", checkJwt, async (req, res) => {
@@ -122,11 +188,16 @@ apiRoutes.put("/team/playerposition/:userId/:positionId", checkJwt, async (req, 
 	res.json(data);
 });
 
-apiRoutes.delete("/team/deletemember/:teamId/:userId", checkJwt, async (req, res) => {
-	let teamId = req.params.teamid;
-	let userId = req.params.userid;
+apiRoutes.delete("/team/member", checkJwt, async (req, res) => {
+	let teamId = req.body.teamId;
+	let userId = req.body.userId;
 	let data = await team.removeMember(teamId, userId);
-	res.json(data);
+	if (data === 1){
+		let data2 = await team.removeUser(teamId, userId);
+		res.json(data2);
+	} else {
+		res.json({"error":"Could not delete member"});
+	}
 });
 //*
 apiRoutes.delete("/team/delete/:teamId", checkJwt, async (req, res) => {
@@ -149,16 +220,30 @@ apiRoutes.get("/event/detail/:id", checkJwt, async (req, res) => {
 	res.json(data);
 });
 
-apiRoutes.post("/event/new/:id", checkJwt, async (req, res) => {
-	let teamId = req.params.id;
-	let eventType = req.body.eventType;
+apiRoutes.post("/event/new", checkJwt, async (req, res) => {
+	let teamId = req.body.teamId;
+	let eventTypeId = req.body.eventTypeId;
 	let eventDate = req.body.eventDate;
-	let venue = req.body.venue;
+	let venueId = req.body.venueId;
 	let eventName = req.body.eventName;
 	let competitorId = req.body.competitorId;
 	let competitorName = req.body.competitorName;
-	let data = await event.createNew(teamId, eventType, eventDate, venue, eventName, competitorId, competitorName);
+	let data = await event.createNew(teamId, eventTypeId, eventDate, venueId, eventName, competitorId, competitorName);
 	res.json(data);
+});
+
+apiRoutes.post("/futureEvents", checkJwt, async (req, res) => {
+	let teamId = req.body.teamId;
+	let data = await event.getAllFuture(teamId);
+	if (data[0]) {
+		if (data[0].length > 0) {
+			res.json(data[0]);
+		} else {
+			res.json({"error":"No events found"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
 });
 
 apiRoutes.delete("/event/delete/:id", checkJwt, async (req, res) => {
@@ -182,6 +267,66 @@ apiRoutes.put("/event/updateattend/:id", checkJwt, async (req, res) => {
 	let data = await event.createAttendanceRecord(eventId, userId, confirmationStatusId, comment);
 	res.json(data);
 });
+
+// venues routes
+
+apiRoutes.get("/venues", checkJwt, async (req, res) => {
+	let data = await venue.getAll();
+	console.log("data: ", data);
+	if (data[0]) {
+		if (data[0].length > 0) {
+			res.json(data[0]);
+		} else {
+			res.json({"error":"No events found"});
+		}
+	} else {
+		res.json({"error":"SQL query returned undefined result"});
+	}
+});
+
+
+apiRoutes.post("/venue/new", checkJwt, async (req, res) => {
+	let apiId = req.body.apiId;
+	let name = req.body.name;
+	let lat = req.body.lat;
+	let lon = req.body.lon;
+	let address = req.body.address;
+	let phone = req.body.phone;
+	let data = await venue.addNew(apiId, name, lat, lon, address, phone);
+	res.json(data);
+});
+
+apiRoutes.get("/venue/details", checkJwt, async (req, res) => {
+	let venueId = req.body.venueId;
+	let data = await venue.getDetails(venueId);
+	res.json(data);
+});
+
+apiRoutes.post("/venue/update", checkJwt, async (req, res) => {
+	let venueId = req.body.venueId;
+	let apiId = req.body.apiId;
+	let name = req.body.name;
+	let lat = req.body.lat;
+	let lon = req.body.lon;
+	let address = req.body.address;
+	let phone = req.body.phone;
+	let data = await venue.update(venueId, apiId, name, lat, lon, address, phone);
+	res.json(data);
+});
+
+apiRoutes.get("/venue/address", checkJwt, async (req, res) => {
+	let venueId = req.body.venueId;
+	let data = await venue.getAddress(venueId);
+	res.json(data);
+});
+
+apiRoutes.delete("/venue/delete/:id", checkJwt, async (req, res) => {
+	let venueId = req.params.id;
+	let data = await venue.delete(venueId);
+	res.json(data);
+});
+
+
 
 //getAnswerTypes, updateEvent
 

@@ -14,6 +14,9 @@ export const Auth0Provider = ({
   const [isAuthenticated, setIsAuthenticated] = useState();
   const [user, setUser] = useState();
   const [dbId, setDbId] = useState('');
+  // Set Modal state and message
+  const [modalState, setModalState] = useState("hide"); 
+  const [modalCopyState, setModalCopyState] = useState(""); 
   const [auth0Client, setAuth0] = useState();
   const [loading, setLoading] = useState(true);
   const [popupOpen, setPopupOpen] = useState(false);
@@ -74,6 +77,8 @@ export const Auth0Provider = ({
         loading,
         popupOpen,
         id:[dbId, setDbId],
+        modal: [modalState, setModalState],
+        modalCopy: [modalCopyState, setModalCopyState],
         loginWithPopup,
         handleRedirectCallback,
         getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
