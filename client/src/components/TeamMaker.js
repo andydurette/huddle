@@ -11,6 +11,7 @@ function TeamMaker() {
   let [modalState, setModalState] =  modal;
   // eslint-disable-next-line
   let [modalCopyState , setModalCopyState ] =  modalCopy;
+  let [teamName, setTeamName] = useState('');
 
 
     let [name, setName] = useState('');
@@ -26,10 +27,8 @@ function TeamMaker() {
 
     let teamMake = (e) =>{
       e.preventDefault();
-      console.log("TeamName:", e.target.name.value);
-      console.log("Description:", e.target.description.value);
-      console.log("Sport:", e.target.sport.value);
-      console.log("Id:", dbId);
+
+      setTeamName(teamName = e.target.name.value);
 
         // Use async call to call out to route with the user email in it's body
         let idCall = async () => {
@@ -75,7 +74,7 @@ function TeamMaker() {
             idCall().then((res) => {
 
               setModalState( modalState = "");
-              setModalCopyState( modalCopyState = `Congratulations you have made team ${res.TeamName}`);
+              setModalCopyState( modalCopyState = `Congratulations you have made team ${teamName}`);
               setTimeout(() =>{ setModalState( modalState = "set") }, 500);
               setTimeout(() =>{ setModalState( modalState = "") }, 3000);
               setTimeout(() =>{ setModalState( modalState = "hide") }, 3500);
