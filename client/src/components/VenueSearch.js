@@ -7,8 +7,9 @@ function VenueSearch() {
 
 
 return (
-      <section>
-          <form>
+    <section id="wrapper" className="search"> 
+          <div id="wrapper-contents">
+        <form>
               <div>
                 <label for = "alert"></label>
               </div>
@@ -21,6 +22,7 @@ return (
               <button type="submit" class="btn btn-submit" id="btnSearchSubmit">Search</button>
           </form>
           <div id="results"></div>
+          </div>
           <Footer/>                  
       </section>
   )

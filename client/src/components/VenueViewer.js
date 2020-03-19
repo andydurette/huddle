@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Footer from "./Footer";
 import {Map, Marker, GoogleApiWrapper, InfoWindow} from "google-maps-react";
+import './map.css';
 
 
 const style = {
@@ -17,6 +18,10 @@ export class VenueViewer extends Component {
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
+    center: {
+      lat: 43.7579346,
+      lng: -79.2892761
+  }
   };
 }
 
@@ -39,15 +44,14 @@ export class VenueViewer extends Component {
   render() {
     return (
       <section id="wrapper" className="map"> 
-      <div id="wrapper-contents" >
-        <div>
+      <div id="wrapper-contents">
       <Map google={this.props.google}
           onClick={this.onMapClicked}
           style={style}
           >
         <Marker onClick={this.onMarkerClick}
-                name={'Current location'}
-                position={{lat: 37.759703, lng: -122.428093}}
+                name={'Ultra Sports Centre'}
+                position={{lat: 43.7579346, lng: -79.2892761}}
                  />
  
         <InfoWindow
@@ -58,8 +62,6 @@ export class VenueViewer extends Component {
             </div>
         </InfoWindow>
       </Map>
-      </div>
-      <div></div>
       </div>
       <Footer/>
      </section>
