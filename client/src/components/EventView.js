@@ -1,4 +1,4 @@
-import React,{useEffect, useState, useRef} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Link } from "react-router-dom";
 import { useAuth0 } from "../react-auth0-spa";
 import Footer from "./Footer";
@@ -7,14 +7,15 @@ function EventView() {
 
   const {id, getTokenSilently} = useAuth0();
   let [venues, setVenues] = useState('');
-  let [time, setTime] = useState('09:00');
+  let [events, setEvents] = useState('');
   let [teamId, setTeamId] = useState('');
   let [team, setTeam] = useState('');
-  let [etype, setEtype] = useState("1");
-  let [events, setEvents] = useState("");
-  
+
+  // Form state
+  let [time, setTime] = useState('09:00');
+  let [etype, setEtype] = useState('1');
   let [competitor, setCompetitor] = useState('');
-  const contentMounted = useRef(false)
+  //const contentMounted = useRef(false)
 
 
   const API = {
@@ -78,39 +79,45 @@ function EventView() {
     },
   };
 
+  let updateVenues = () =>{
+    API.callVenues().then((res) => {setVenues(venues = res)});
+  }
+  
+
   let contentUpdate = () =>{
-
-       // Call all users not associated with a team
-       if(contentMounted.current === true){
-
-       }else if ( id[0] !== '' && team === ''){
-        API.teamCheck().then((res) => {
-          if (res.hasTeams === false){
-            setTeam(team = 'false');
-          }else if(res.hasTeams === true){
-
-            //If a team was found set to the team useRef hook for consumption also send it to teamPositions api to grab the posions
+    if ( id[0] !== '' && team === ''){
+      // Grabs users team if they have one. 
+      API.teamCheck().then((res) => {
+        if (res.hasTeams === false){
+          setTeam(team = 'false');
+        }else if(res.hasTeams === true){
+           //If a team was found save the value to useState hook for consumption also send it to eventsCheck api to grab the events
             API.teamCall().then((res) => { 
+              setTeam(team = res);
               setTeamId(teamId = res[0].team_id);
             }).then(() => {
               API.eventsCheck().then((res) => {
-                setEvents( events = res);
-              }).then(() => {contentMounted.current = true})
-            })
-          }}) 
-        }
+                  setEvents( events = res ) 
+              });
+          });
+            
+           }  
+        })
+      }
   }
 
 
   useEffect(() => {
-    // eslint-disable-next-line
-    API.callVenues().then((res) => {setVenues(venues = res)});
+      updateVenues();
+      // eslint-disable-next-line
   },[]);
 
 
   useEffect(() => {
       contentUpdate();
   });
+
+
 
 
   if( team === 'false' ){
@@ -127,7 +134,8 @@ function EventView() {
     )
   }
 
-  if (id[0] === '' || venues === '' || events === '' || contentMounted.current === false) {
+
+  if (id[0] === '' || venues === '' || events === '') {
     return (
       <section id="wrapper" className="eventview"> 
         <div id="wrapper-contents" >  
@@ -138,11 +146,11 @@ function EventView() {
     )
   }
 
+
   return (
       <section id="wrapper" className="eventview"> 
           <div id="wrapper-contents" >  
 
-      
     {/* Grabs all team event data and loops through it to send to the front end  */}
     <h2>Events for your team</h2> 
     <table >
@@ -154,15 +162,16 @@ function EventView() {
             <th>Venue</th>
             <th>Address</th>
           </tr>
-        
-        {events.map((event, index) => (
+          {events.map((event, index) => (
           <tr key={index} className="team-player">
             <td>{event.event_date}</td>
             <td>{event.event_name}</td>
             <td>{event.vanue_name}</td>
             <td>{event.address}</td>
           </tr>
-        ))}
+        ))} 
+      
+        
           
         </React.Fragment>
         </tbody>
