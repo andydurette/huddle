@@ -92,9 +92,8 @@ function EventView() {
               setTeamId(teamId = res[0].team_id);
             }).then(() => {
               API.eventsCheck().then((res) => {
-                setEvents( events = res)
-                contentMounted.current = true
-              })
+                setEvents( events = res);
+              }).then(() => {contentMounted.current = true})
             })
           }}) 
         }
@@ -126,7 +125,7 @@ function EventView() {
     )
   }
 
-  if (id[0] === '' || venues === '' || events === '') {
+  if (id[0] === '' || venues === '' || events === '' || contentMounted.current === false) {
     return (
       <section id="wrapper" className="eventview"> 
         <div id="wrapper-contents" >  
