@@ -87,7 +87,6 @@ function TeamView() {
                 setFreePlayers(freePlayers = res);
               }
             });
-
   }
 
 
