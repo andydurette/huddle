@@ -1,4 +1,4 @@
-[
+export const MyStyle = [
     {
         "featureType": "administrative.land_parcel",
         "elementType": "geometry.fill",

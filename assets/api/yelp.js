@@ -1,4 +1,4 @@
-const key = "ztrC0_GI_M6D5IyWDQglLkh-H14Ksbty0PyqetKbEgyHnpT5ZCnqKdjoUmuVEnd2QgXSG96Kh4CDiGGMIRBf8Xfy0rCo1Sq7TIC6rm5rkuT6VIW_0QUqxuSO-2oiXnYx";
+const key = process.env.REACT_APP_API_KEY_YELP;
 const axios = require("axios");
 
 

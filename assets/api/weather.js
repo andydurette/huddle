@@ -1,4 +1,4 @@
-const apiKey = "3a4dd83a114abb86edd8a975843229f2";
+const apiKey = process.env.REACT_APP_API_KEY_Weather;
 const axios = require("axios");
 
 

@@ -2,15 +2,15 @@ import React from 'react';
 import Footer from "./Footer";
 
 
-const VenueSearch = () => {
-   
+function VenueSearch() {
+
+
+
 return (
       <section>
-          <script src="./src/venueSearch.js" type="text/javascript" ></script>
-          <script  src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
           <form>
               <div>
-                  <label></label>
+                <label for = "alert"></label>
               </div>
               <div>
                   <label for = "location">location</label>

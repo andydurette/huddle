@@ -15,6 +15,10 @@ import TeamMaker from "./components/TeamMaker";
 import TeamView from "./components/TeamView";
 import EventView from "./components/EventView";
 import MessageModal from './components/MessageModal';
+import VenueViewer from './components/VenueViewer';
+import VenueSearch from './components/VenueSearch';
+
+
 
 // fontawesome
 import initFontAwesome from "./utils/initFontAwesome";
@@ -73,6 +77,8 @@ function App() {
           <PrivateRoute path="/teamview" exact  component={TeamView}  />
           <PrivateRoute path="/eventview" component={EventView} />
           <PrivateRoute path="/profile"  component={Profile} />
+          <PrivateRoute path="/search" component={VenueSearch} />
+          <PrivateRoute path="/map" component={VenueViewer} />
           <PrivateRoute path="/external-api" component={ExternalApi} />
         </Switch>
       </Router>
