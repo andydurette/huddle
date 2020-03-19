@@ -84,11 +84,10 @@ function EventView() {
        if ( id[0] !== '' && team === ''){
         API.teamCheck().then((res) => {
           if (res.hasTeams === false){
-            setTeam(team = `false`);
+            setTeam(team = 'false');
           }else if(res.hasTeams === true){
 
             //If a team was found set to the team useRef hook for consumption also send it to teamPositions api to grab the posions
-       
             API.teamCall().then((res) => { 
               setTeamId(teamId = res[0].team_id);
             }).then(() => {
@@ -109,22 +108,11 @@ function EventView() {
 
 
   useEffect(() => {
-    if (id !== '' && contentMounted.current === false ){
       contentUpdate();
-    }
   });
 
 
-  if (id[0] === '' || venues === '' || events === '') {
-    return (
-      <section id="wrapper" className="eventview"> 
-        <div id="wrapper-contents" >  
-          <div>Loading...</div>
-        </div>
-        <Footer/>
-      </section>
-    )
-  }else if( team === 'false' || ''){
+  if( team === 'false' ){
     return (
       <section id="wrapper" className="teamview"> 
         <div id="wrapper-contents" >  
@@ -136,7 +124,18 @@ function EventView() {
         <Footer/>
       </section>
     )
-  }else{
+  }
+
+  if (id[0] === '' || venues === '' || events === '') {
+    return (
+      <section id="wrapper" className="eventview"> 
+        <div id="wrapper-contents" >  
+          <div>Loading...</div>
+        </div>
+        <Footer/>
+      </section>
+    )
+  }
 
   return (
       <section id="wrapper" className="eventview"> 
@@ -220,7 +219,6 @@ function EventView() {
           <Footer/>
       </section>
     )
-            }
 }
 
 export default EventView;
