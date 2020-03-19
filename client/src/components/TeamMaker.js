@@ -104,8 +104,8 @@ function TeamMaker() {
                     <select name="sport" id="sport" required>
                         <option value='1'>Basketball</option> 
                         <option value='2'>Baseball</option> 
-                        <option value='2'>Hockey</option> 
-                        <option value='2'>Soccer</option> 
+                        <option value='3'>Hockey</option> 
+                        <option value='4'>Soccer</option> 
                     </select>
                   </li>
                   <li>
