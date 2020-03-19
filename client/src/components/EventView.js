@@ -97,7 +97,11 @@ function EventView() {
               setTeamId(teamId = res[0].team_id);
             }).then(() => {
               API.eventsCheck().then((res) => {
-                  setEvents( events = res ) 
+                if(res.error){
+                  setEvents( events = 'No Events' ); 
+                }else{
+                  setEvents( events = res ); 
+                }
               });
           });
             
@@ -153,6 +157,7 @@ function EventView() {
 
     {/* Grabs all team event data and loops through it to send to the front end  */}
     <h2>Events for your team</h2> 
+    {((events === 'No Events') ? <p>There are no upcoming events currently for your team</p> : 
     <table >
       <tbody>
         <React.Fragment>
@@ -162,20 +167,23 @@ function EventView() {
             <th>Venue</th>
             <th>Address</th>
           </tr>
-          {events.map((event, index) => (
-          <tr key={index} className="team-player">
-            <td>{event.event_date}</td>
-            <td>{event.event_name}</td>
-            <td>{event.vanue_name}</td>
-            <td>{event.address}</td>
-          </tr>
-        ))} 
       
+         
+            {events.map((event, index) => (
+              <tr key={index} className="team-player">
+                <td>{event.event_date}</td>
+                <td>{event.event_name}</td>
+                <td>{event.vanue_name}</td>
+                <td>{event.address}</td>
+              </tr>
+            ))}
+         
+
         
-          
         </React.Fragment>
         </tbody>
     </table>
+     )}  
 
 
   {/* Add Team  Members */}
