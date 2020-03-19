@@ -11,6 +11,7 @@ function EventView() {
   let [teamId, setTeamId] = useState('');
   let [team, setTeam] = useState('');
   let [etype, setEtype] = useState("1");
+  let [events, setEvents] = useState("");
   
   let [competitor, setCompetitor] = useState('');
   const contentMounted = useRef(false)
@@ -33,10 +34,14 @@ function EventView() {
       let venueId = e.target.venue.value;
       let eventDate = `${e.target.date.value} ${e.target.time.value}`;
       let competitorId = 0;
-      let competitorName =  e.target.competitor.value;
-
+      let competitorName;
+      if (etype === 1){
+        competitorName =  e.target.competitor.value;
+      }else{
+        competitorName =  null;
+      }
       const token = await getTokenSilently();
-      const res = await fetch("/api/team/new", {
+      const res = await fetch("/api/event/new", {
         method: "POST",
         body: JSON.stringify({teamId, eventTypeId, eventDate, venueId, eventName, competitorId, competitorName}),
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
@@ -76,6 +81,7 @@ function EventView() {
   let contentUpdate = () =>{
 
        // Call all users not associated with a team
+       if ( id[0] !== '' && team === ''){
         API.teamCheck().then((res) => {
           if (res.hasTeams === false){
             setTeam(team = `false`);
@@ -85,13 +91,14 @@ function EventView() {
        
             API.teamCall().then((res) => { 
               setTeamId(teamId = res[0].team_id);
-              contentMounted.current = true
-            }).then(
+            }).then(() => {
               API.eventsCheck().then((res) => {
-                console.log(res);
+                setEvents( events = res)
+                contentMounted.current = true
               })
-            )
+            })
           }}) 
+        }
   }
 
 
@@ -108,7 +115,7 @@ function EventView() {
   });
 
 
-  if (id[0] === '' || venues === '') {
+  if (id[0] === '' || venues === '' || events === '') {
     return (
       <section id="wrapper" className="eventview"> 
         <div id="wrapper-contents" >  
@@ -144,15 +151,18 @@ function EventView() {
           <tr>
             <th>Event Date</th>
             <th>Event Name</th>
-            <th>Venue Type</th>
+            <th>Venue</th>
+            <th>Address</th>
           </tr>
-          
-        {/*}  {team.map((teamMember, index) => (
-          <tr key={teamMember.user_id} className="team-player">
-            <td>{teamMember.member}</td>
-            <td>{teamMember.player_pos_name}</td>
+        
+        {events.map((event, index) => (
+          <tr key={index} className="team-player">
+            <td>{event.event_date}</td>
+            <td>{event.event_name}</td>
+            <td>{event.vanue_name}</td>
+            <td>{event.address}</td>
           </tr>
-        ))} */}
+        ))}
           
         </React.Fragment>
         </tbody>
