@@ -36,10 +36,10 @@ function EventView() {
       let eventDate = `${e.target.date.value} ${e.target.time.value}`;
       let competitorId = 0;
       let competitorName;
-      if (etype === 1){
+      if (etype === '1'){
         competitorName =  e.target.competitor.value;
       }else{
-        competitorName =  null;
+        competitorName =  'No team, this is a Practice';
       }
       const token = await getTokenSilently();
       const res = await fetch("/api/event/new", {
@@ -166,6 +166,7 @@ function EventView() {
             <th>Event Name</th>
             <th>Venue</th>
             <th>Address</th>
+            <th>Competitor</th>
           </tr>
       
          
@@ -175,6 +176,7 @@ function EventView() {
                 <td>{event.event_name}</td>
                 <td>{event.vanue_name}</td>
                 <td>{event.address}</td>
+                <td>{event.competitorName}</td>
               </tr>
             ))}
          
