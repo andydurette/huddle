@@ -176,7 +176,7 @@ function EventView() {
                 <td>{event.event_name}</td>
                 <td>{event.vanue_name}</td>
                 <td>{event.address}</td>
-                <td>{event.competitorName}</td>
+                <td>{event.competitior_name}</td>
               </tr>
             ))}
          
@@ -193,7 +193,15 @@ function EventView() {
 
     <h2>Add event for your team</h2>   
     {   
-      <form onSubmit={(e) => API.addEvent(e).then((res) => console.log(res))}>
+      <form onSubmit={(e) => API.addEvent(e).then(() => {
+        API.eventsCheck().then((res) => {
+          if(res.error){
+            setEvents( events = 'No Events' ); 
+          }else{
+            setEvents( events = res ); 
+          }
+        });
+      })}>
         <ul className="flex-outer">
           <li>
             <label htmlFor="ename">Event Name:&nbsp;</label>
