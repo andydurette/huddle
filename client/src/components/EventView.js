@@ -81,7 +81,9 @@ function EventView() {
   let contentUpdate = () =>{
 
        // Call all users not associated with a team
-       if ( id[0] !== '' && team === ''){
+       if(contentMounted.current === true){
+
+       }else if ( id[0] !== '' && team === ''){
         API.teamCheck().then((res) => {
           if (res.hasTeams === false){
             setTeam(team = 'false');
