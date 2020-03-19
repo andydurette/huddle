@@ -108,8 +108,8 @@ function EventView() {
 
 
   useEffect(() => {
-    // eslint-disable-next-line
       updateVenues();
+      // eslint-disable-next-line
   },[]);
 
 
